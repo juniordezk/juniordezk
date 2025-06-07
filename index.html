@@ -9,38 +9,51 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%; /* Garante que o fundo ocupe toda a tela */
+      height: 100%; /* Garante que a altura do body ocupe toda a tela */
     }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to bottom right, #003300, #000000);
+      background: linear-gradient(to bottom right, #003300, #000000); /* Cor de fundo contínua */
       color: #ffffff;
       text-align: center;
-      padding: 50px 20px;
-      height: 100%;
+      padding: 0; /* Remover qualquer padding */
+      height: 100%; /* Garantir que o fundo ocupe toda a tela */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start; /* Posiciona os itens no topo */
+      min-height: 100vh; /* Garante que a cor do fundo preencha a tela inteira */
     }
 
     .logo {
       font-size: 36px;
       font-weight: bold;
       color: #00ffcc;
-      margin-bottom: 40px;
+      margin-top: 50px; /* Abaixando o título para que ele não fique tão alto */
+      margin-bottom: 15px; /* Distância entre o título e os botões */
       letter-spacing: 2px;
     }
 
+    /* Botões padrão */
     button {
       padding: 15px 40px;
       font-size: 22px;
-      color: #000;
+      color: #fff;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      background-color: #888; /* Cor cinza por padrão */
+      transition: background-color 0.3s, transform 0.2s;
     }
 
+    /* Efeito ao passar o mouse */
     button:hover {
-      background-color: #00ccaa;
+      opacity: 0.8;
+    }
+
+    /* Efeito de clique (escurece o botão quando clicado) */
+    button:active {
+      transform: scale(0.95);
     }
 
     /* Box de resultado */
@@ -68,31 +81,24 @@
       100% { opacity: 1; }
     }
 
-    /* Sem animação para as opções de sorteio */
-    .azul, .vermelho {
-      color: white;
-      text-shadow: none;
-      animation: none;
-    }
-
     /* Estilo do iframe para exibir o site de apostas */
     .apostas-container {
       margin-top: 50px;
       width: 100%;
-      height: 95vh; /* Ajusta para ocupar 95% da altura da tela */
+      height: 95vh;
       border: none;
     }
 
     /* Responsividade para dispositivos móveis */
     @media (max-width: 768px) {
       .apostas-container {
-        height: 90vh; /* Ajusta o tamanho do iframe em dispositivos móveis */
+        height: 90vh;
       }
     }
 
     @media (max-width: 480px) {
       .apostas-container {
-        height: 90vh; /* Ajusta o tamanho do iframe para telas muito pequenas */
+        height: 90vh;
       }
     }
 
@@ -108,7 +114,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.7); /* Opacidade preta para bloquear */
+      background: rgba(0, 0, 0, 0.7);
       color: white;
       display: flex;
       justify-content: center;
@@ -117,23 +123,60 @@
       z-index: 9999;
     }
 
-    /* Botão "Alternar Mercado" */
-    .alternar-mercado {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      padding: 5px 15px; /* Diminui o tamanho do botão */
-      font-size: 14px; /* Diminui o tamanho da fonte */
-      background-color: #00ffcc;
-      color: #000;
-      border: none;
+    /* Tela inicial de seleção */
+    .selecionar-jogo {
+      margin-top: 20px; /* Abaixando os botões para que fiquem mais próximos do título */
+    }
+
+    .opcao-jogo {
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 20px;
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s;
     }
 
-    .alternar-mercado:hover {
-      background-color: #00ccaa;
+    .opcao-jogo:hover {
+      opacity: 0.8;
+    }
+
+    /* Botão de voltar (canto superior esquerdo) */
+    .voltar-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 5px 12px;  /* Menor tamanho */
+      font-size: 14px;     /* Tamanho de fonte reduzido */
+      background-color: #ff6666;
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      display: none; /* Inicialmente escondido */
+    }
+
+    .voltar-btn:hover {
+      background-color: #ff4444;
+    }
+
+    /* Cores para cada jogo */
+    .roleta-btn {
+      background-color: red;
+    }
+
+    .bacbo-btn {
+      background-color: blue;
+    }
+
+    .footballstudio-btn {
+      background-color: green;
+    }
+
+    /* Ajustando o botão "Pedir Sinal" para ficar mais baixo */
+    #buscarSinal {
+      margin-top: 30px; /* Abaixando o botão "Pedir Sinal" */
     }
   </style>
 </head>
@@ -142,27 +185,28 @@
   <div id="bloqueado">Acesso restrito. Por favor, digite a senha para continuar.</div>
 
   <div class="logo">IA Júnior Martins</div>
-  <button id="buscarSinal" onclick="buscarSinal()">BUSCAR SINAL</button>
-  <div class="sinal-box" id="resultado"></div>
-  
-  <!-- Botão para alternar mercado -->
-  <button class="alternar-mercado" onclick="alternarMercado()">Alternar Mercado</button>
+
+  <!-- Tela de seleção de jogo -->
+  <div id="selecionar-jogo" class="selecionar-jogo">
+    <button class="opcao-jogo bacbo-btn" onclick="selecionarJogo('Bac Bo🎲')">Bac Bo</button>
+    <button class="opcao-jogo roleta-btn" onclick="selecionarJogo('Roleta🎰')">Roleta</button>
+    <button class="opcao-jogo footballstudio-btn" onclick="selecionarJogo('Football Studio🃏')">Football Studio</button>
+  </div>
+
+  <!-- Conteúdo do sorteio -->
+  <div id="conteudo">
+    <button id="buscarSinal" onclick="buscarSinal()">BUSCAR SINAL</button>
+    <div class="sinal-box" id="resultado"></div>
+    <iframe class="apostas-container" src="https://m.reals.bet.br/live-casino" title="Casa de Apostas Real's Bet" allowfullscreen></iframe>
+  </div>
+
+  <!-- Botão de voltar para a página de seleção -->
+  <button class="voltar-btn" onclick="voltarParaSelecao()">Voltar à seleção de jogo</button>
 
   <script>
     const senhaCorreta = "1234"; // Defina a senha aqui
     let isSenhaCorreta = false; // Variável para verificar se a senha foi corretamente inserida
-    let mercadoAtual = "Bac Bo"; // Mercado inicial
-    const roletaOpcoes = [
-      "🎰4 e seus vizinhos",
-      "🎰9 e seus vizinhos",
-      "🎰26 e seus vizinhos",
-      "🎰10 e seus vizinhos"
-    ];
-    const footballStudioOpcoes = [
-      "🔵VISITANTE - PROBABILIDADE SEM GALE🎯",
-      "🔴CASA - PROBABILIDADE SEM GALE🎯"
-    ];
-    let sorteioAtual = "";
+    let mercadoAtual = "";
 
     // Função para verificar a senha
     const verificarSenha = () => {
@@ -173,76 +217,66 @@
 
         if (senha === senhaCorreta) {
           isSenhaCorreta = true;
-          document.getElementById("conteudo").style.display = "block"; // Exibe o conteúdo
+          document.getElementById("conteudo").style.display = "none"; // Esconde o conteúdo inicialmente
           document.getElementById("bloqueado").style.display = "none"; // Remove o bloqueio
+          document.getElementById("selecionar-jogo").style.display = "block"; // Exibe as opções de jogo
         } else {
           alert("Senha incorreta. Acesso negado.");
         }
       }
     };
 
-    // Executa a função ao carregar a página
     window.onload = () => {
       verificarSenha();
-      // Define as cores dos botões para o mercado inicial (Bac Bo)
-      document.querySelector("#buscarSinal").style.backgroundColor = "blue";
-      document.querySelector(".alternar-mercado").style.backgroundColor = "blue";
     };
+
+    // Função para selecionar o jogo
+    function selecionarJogo(jogo) {
+      mercadoAtual = jogo;
+      document.getElementById("selecionar-jogo").style.display = "none"; // Esconde as opções de jogo
+      document.getElementById("conteudo").style.display = "block"; // Exibe o conteúdo do sorteio
+      document.querySelector(".voltar-btn").style.display = "inline-block"; // Exibe o botão de voltar
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.textContent = `Jogo selecionado: ${mercadoAtual}`;
+      
+      // Altera a cor do botão "Buscar Sinal" para a cor do jogo selecionado
+      if (mercadoAtual === "Bac Bo🎲") {
+        document.getElementById("buscarSinal").style.backgroundColor = "blue";
+      } else if (mercadoAtual === "Roleta🎰") {
+        document.getElementById("buscarSinal").style.backgroundColor = "red";
+      } else if (mercadoAtual === "Football Studio🃏") {
+        document.getElementById("buscarSinal").style.backgroundColor = "green";
+      }
+    }
 
     function buscarSinal() {
       const resultadoDiv = document.getElementById('resultado');
       resultadoDiv.textContent = "Buscando entrada...";
       resultadoDiv.classList.add('buscando'); // Ativa a animação de piscar
-      resultadoDiv.classList.remove('azul', 'vermelho'); // Remove qualquer resultado anterior
 
       setTimeout(() => {
         // Sorteio dependendo do mercado atual
-        if (mercadoAtual === "Bac Bo") {
-          sorteioAtual = Math.random() < 0.5 ? '🔵PLAYER - PROBABILIDADE SEM GALE🎯' : '🔴BANKER - PROBABILIDADE SEM GALE🎯';
-        } else if (mercadoAtual === "Roleta") {
-          sorteioAtual = roletaOpcoes[Math.floor(Math.random() * roletaOpcoes.length)];
-        } else if (mercadoAtual === "Football Studio") {
-          sorteioAtual = footballStudioOpcoes[Math.floor(Math.random() * footballStudioOpcoes.length)];
+        let sorteioAtual = "";
+        if (mercadoAtual === "Bac Bo🎲") {
+          sorteioAtual = Math.random() < 0.5 ? '🔵PLAYER SEM MARTINGALE' : '🔴BANKER SEM MARTINGALE';
+        } else if (mercadoAtual === "Roleta🎰") {
+          sorteioAtual = `🎰 ENTRAR NO NÚMERO ${Math.floor(Math.random() * 36)} E SEUS VIZINHOS`;
+        } else if (mercadoAtual === "Football Studio🃏") {
+          sorteioAtual = Math.random() < 0.5 ? '🔵VISITANTE SEM MARTINGALE' : '🔴CASA SEM MARTINGALE';
         }
 
-        // Exibe o resultado sem o prefixo "Resultado do sorteio:"
         resultadoDiv.textContent = sorteioAtual;
-        // Após mostrar o resultado, remove a animação de piscar
         resultadoDiv.classList.remove('buscando');
-
-        if (sorteioAtual.includes("🔵") || sorteioAtual.includes("🔴")) {
-          resultadoDiv.classList.add('azul');
-        } else {
-          resultadoDiv.classList.add('vermelho');
-        }
-      }, 2000); // Tempo de "buscando entrada"
+      }, 2000);
     }
 
-    // Função para alternar entre os mercados
-    function alternarMercado() {
-      if (mercadoAtual === "Bac Bo") {
-        mercadoAtual = "Roleta";
-        document.querySelector("#buscarSinal").style.backgroundColor = "red";
-        document.querySelector(".alternar-mercado").style.backgroundColor = "red";
-      } else if (mercadoAtual === "Roleta") {
-        mercadoAtual = "Football Studio";
-        document.querySelector("#buscarSinal").style.backgroundColor = "green";
-        document.querySelector(".alternar-mercado").style.backgroundColor = "green";
-      } else {
-        mercadoAtual = "Bac Bo";
-        document.querySelector("#buscarSinal").style.backgroundColor = "blue";
-        document.querySelector(".alternar-mercado").style.backgroundColor = "blue";
-      }
-
-      const resultadoDiv = document.getElementById('resultado');
-      resultadoDiv.textContent = `Mercado Atual: ${mercadoAtual}`;
+    // Função para voltar à tela de seleção
+    function voltarParaSelecao() {
+      document.getElementById("conteudo").style.display = "none"; // Esconde o conteúdo do sorteio
+      document.getElementById("selecionar-jogo").style.display = "block"; // Exibe as opções de jogo novamente
+      document.querySelector(".voltar-btn").style.display = "none"; // Esconde o botão de voltar
     }
   </script>
-
-  <!-- Conteúdo protegido -->
-  <div id="conteudo">
-    <iframe class="apostas-container" src="https://m.reals.bet.br/live-casino" title="Casa de Apostas Real's Bet" allowfullscreen></iframe>
-  </div>
 
 </body>
 </html>
