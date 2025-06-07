@@ -86,20 +86,20 @@
     .apostas-container {
       margin-top: 50px;
       width: 100%;
-      height: 90vh; /* Ajusta para ocupar 90% da altura da tela */
+      height: 100vh; /* Agora ocupa 100% da altura da tela */
       border: none;
     }
 
     /* Responsividade para dispositivos móveis */
     @media (max-width: 768px) {
       .apostas-container {
-        height: 80vh; /* Ajusta o tamanho do iframe em dispositivos móveis */
+        height: 85vh; /* Ajusta o tamanho do iframe em dispositivos móveis para ficar maior */
       }
     }
 
     @media (max-width: 480px) {
       .apostas-container {
-        height: 75vh; /* Ajusta o tamanho do iframe para telas muito pequenas */
+        height: 80vh; /* Ajusta o tamanho do iframe para telas muito pequenas */
       }
     }
 
@@ -147,7 +147,7 @@
         if (senha === senhaCorreta) {
           isSenhaCorreta = true;
           document.getElementById("conteudo").style.display = "block"; // Exibe o conteúdo
-        document.getElementById("bloqueado").style.display = "none"; // Remove o bloqueio
+          document.getElementById("bloqueado").style.display = "none"; // Remove o bloqueio
         } else {
           alert("Senha incorreta. Acesso negado.");
         }
@@ -160,7 +160,7 @@
     function buscarSinal() {
       const resultadoDiv = document.getElementById('resultado');
       resultadoDiv.textContent = "Buscando entrada...";
-      resultadoDiv.classList.add('buscando');
+resultadoDiv.classList.add('buscando');
       resultadoDiv.classList.remove('azul', 'vermelho');
 
       setTimeout(() => {
