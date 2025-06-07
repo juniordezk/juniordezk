@@ -9,7 +9,7 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
+      height: 100%; /* Garante que o fundo ocupe toda a tela */
     }
 
     body {
@@ -44,6 +44,7 @@
       background-color: #00ccaa;
     }
 
+    /* Box de resultado */
     .sinal-box {
       margin-top: 50px;
       font-size: 28px;
@@ -57,6 +58,7 @@
       white-space: pre-line;
     }
 
+    /* Efeitos e animações */
     .buscando {
       color: #cccccc;
       animation: piscar 1s infinite;
@@ -84,31 +86,77 @@
     .apostas-container {
       margin-top: 50px;
       width: 100%;
-      height: 80vh; /* 80% da altura da tela */
+      height: 90vh; /* Ajusta para ocupar 90% da altura da tela */
       border: none;
     }
 
     /* Responsividade para dispositivos móveis */
     @media (max-width: 768px) {
       .apostas-container {
-        height: 70vh; /* Ajusta o tamanho do iframe em dispositivos móveis */
+        height: 80vh; /* Ajusta o tamanho do iframe em dispositivos móveis */
       }
     }
 
     @media (max-width: 480px) {
       .apostas-container {
-        height: 65vh; /* Ajusta o tamanho do iframe para telas muito pequenas */
+        height: 75vh; /* Ajusta o tamanho do iframe para telas muito pequenas */
       }
+    }
+
+    /* Estilo para esconder o conteúdo até a senha ser correta */
+    #conteudo {
+      display: none;
+    }
+
+    /* Estilo para bloquear interação até a senha ser correta */
+    #bloqueado {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7); /* Opacidade preta para bloquear */
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      z-index: 9999;
     }
   </style>
 </head>
 <body>
+
+  <div id="bloqueado">Acesso restrito. Por favor, digite a senha para continuar.</div>
 
   <div class="logo">IA Júnior Martins</div>
   <button onclick="buscarSinal()">BUSCAR SINAL</button>
   <div class="sinal-box" id="resultado"></div>
 
   <script>
+    const senhaCorreta = "1234"; // Defina a senha aqui
+    let isSenhaCorreta = false; // Variável para verificar se a senha foi corretamente inserida
+
+    // Função para verificar a senha
+    const verificarSenha = () => {
+      let senha;
+      // Enquanto a senha estiver incorreta, manter a solicitação de senha
+      while (!isSenhaCorreta) {
+        senha = prompt("Digite a senha para acessar o conteúdo:");
+
+        if (senha === senhaCorreta) {
+          isSenhaCorreta = true;
+          document.getElementById("conteudo").style.display = "block"; // Exibe o conteúdo
+        document.getElementById("bloqueado").style.display = "none"; // Remove o bloqueio
+        } else {
+          alert("Senha incorreta. Acesso negado.");
+        }
+      }
+    };
+
+    // Executa a função ao carregar a página
+    window.onload = verificarSenha;
+
     function buscarSinal() {
       const resultadoDiv = document.getElementById('resultado');
       resultadoDiv.textContent = "Buscando entrada...";
@@ -120,12 +168,12 @@
 
         if (sorteio === 'azul') {
           resultadoDiv.textContent = "🔵PLAYER - PROBABILIDADE SEM GALE🎯";
-          resultadoDiv.classList.add('azul'); 
+          resultadoDiv.classList.add('azul');
         } else {
           resultadoDiv.textContent = "🔴BANKER - PROBABILIDADE SEM GALE🎯";
-          resultadoDiv.classList.add('vermelho'); 
+          resultadoDiv.classList.add('vermelho');
         }
-      }, 2000); 
+      }, 2000); // Tempo de "buscando entrada"
     }
   </script>
 
