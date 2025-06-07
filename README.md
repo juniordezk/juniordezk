@@ -9,7 +9,7 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%; /* Garante que o fundo ocupe toda a tela */
+      height: 100%;
     }
 
     body {
@@ -81,104 +81,73 @@
       text-shadow: none;
       animation: none;
     }
-/* Estilo do iframe para exibir o site de apostas */
+
+    /* Estilo do iframe para exibir o site de apostas */
     .apostas-container {
-      margin-top: 50px; /* Dá espaço entre o sorteio e o site de apostas */
+      margin-top: 50px;
       width: 100%;
-      height: 600px; /* Ajuste conforme necessário */
+      height: 600px;
       border: none;
     }
 
-    /* Estilo para esconder o conteúdo até a senha ser correta */
-    #conteudo {
-      display: none;
-    }
-
-    /* Estilo para bloquear interação até a senha ser correta */
-    #bloqueado {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7); /* Opacidade preta para bloquear */
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      z-index: 9999;
-    }
-
-    /* Responsividade para dispositivos móveis */
+    /* Responsividade */
     @media (max-width: 768px) {
       .logo {
-        font-size: 28px; /* Ajusta o tamanho da logo */
+        font-size: 28px;
       }
-
       button {
-        font-size: 18px; /* Ajusta o tamanho do botão */
-        padding: 12px 30px; /* Ajusta o padding do botão */
+        font-size: 18px;
+        padding: 12px 30px;
       }
-
       .sinal-box {
-        font-size: 24px; /* Ajusta o tamanho da fonte do resultado */
+        font-size: 24px;
       }
-
       .apostas-container {
-        height: 400px; /* Ajusta o tamanho do iframe em dispositivos móveis */
+        height: 400px;
       }
-    }
-
     @media (max-width: 480px) {
       button {
-        font-size: 16px; /* Ajusta o tamanho do botão para telas muito pequenas */
+        font-size: 16px;
         padding: 10px 20px;
       }
-
       .sinal-box {
-        font-size: 20px; /* Ajusta o tamanho da fonte do resultado para telas pequenas */
+        font-size: 20px;
       }
-
       .apostas-container {
-        height: 350px; /* Ajusta o tamanho do iframe para telas muito pequenas */
+        height: 350px;
       }
     }
   </style>
 </head>
 <body>
 
-  <div id="bloqueado">Acesso restrito. Por favor, digite a senha para continuar.</div>
-
   <div class="logo">IA Júnior Martins</div>
-  <button onclick="buscarSinal()">BUSCAR SINAL</button>
-  <div class="sinal-box" id="resultado"></div>
+
+  <!-- Exibe a senha -->
+  <div id="conteudo">
+    <button onclick="buscarSinal()">BUSCAR SINAL</button>
+    <div class="sinal-box" id="resultado"></div>
+
+    <iframe class="apostas-container" src="https://m.reals.bet.br/live-casino" title="Casa de Apostas Real's Bet" allowfullscreen></iframe>
+  </div>
 
   <script>
-    const senhaCorreta = "1234"; // Defina a senha aqui
-    let isSenhaCorreta = false; // Variável para verificar se a senha foi corretamente inserida
+    const senhaCorreta = "1234"; // Senha correta
+    let isSenhaCorreta = false;
 
-    // Função para verificar a senha
+    // Função de verificação da senha
     const verificarSenha = () => {
-      let senha;
+      const senha = prompt("Digite a senha para acessar o conteúdo:");
 
-      // Enquanto a senha estiver incorreta, manter a solicitação de senha
-      while (!isSenhaCorreta) {
-        senha = prompt("Digite a senha para acessar o conteúdo:");
-
-        if (senha === senhaCorreta) {
-          isSenhaCorreta = true;
-          document.getElementById("conteudo").style.display = "block"; // Exibe o conteúdo
-          document.getElementById("bloqueado").style.display = "none"; // Remove o bloqueio
-        } else {
-          alert("Senha incorreta. Acesso negado.");
-        }
+      if (senha === senhaCorreta) {
+        document.getElementById("conteudo").style.display = "block"; // Exibe o conteúdo
+        isSenhaCorreta = true;
+      } else {
+        alert("Senha incorreta. Acesso negado.");
       }
     };
 
-    // Executa a função ao carregar a página
-    window.onload = verificarSenha;
-
+    // Função para buscar o sinal
     function buscarSinal() {
       const resultadoDiv = document.getElementById('resultado');
       resultadoDiv.textContent = "Buscando entrada...";
@@ -190,19 +159,17 @@
 
         if (sorteio === 'azul') {
           resultadoDiv.textContent = "🔵PLAYER - PROBABILIDADE SEM GALE🎯";
-          resultadoDiv.classList.add('azul'); // Nenhuma animação aplicada
+          resultadoDiv.classList.add('azul');
         } else {
           resultadoDiv.textContent = "🔴BANKER - PROBABILIDADE SEM GALE🎯";
-          resultadoDiv.classList.add('vermelho'); // Nenhuma animação aplicada
+          resultadoDiv.classList.add('vermelho');
         }
-      }, 2000); // Tempo de "buscando entrada"
+      }, 2000);
     }
-  </script>
 
-  <!-- Conteúdo protegido -->
-  <div id="conteudo">
-    <iframe class="apostas-container" src="https://m.reals.bet.br/live-casino" title="Casa de Apostas Real's Bet" allowfullscreen></iframe>
-  </div>
+    window.onload = verificarSenha;
+  </script>
 
 </body>
 </html>
+    
