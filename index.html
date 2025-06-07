@@ -84,20 +84,20 @@
     .apostas-container {
       margin-top: 50px;
       width: 100%;
-      height: 95vh; /* Ajusta o iframe para ocupar quase toda a altura */
+      height: 100vh; /* Aumenta a altura do iframe */
       border: none;
     }
 
     /* Responsividade */
     @media (max-width: 768px) {
       .apostas-container {
-        height: 90vh;
+        height: 90vh; /* Ajusta para celulares de tela maior */
       }
     }
 
     @media (max-width: 480px) {
       .apostas-container {
-        height: 80vh; /* Ajusta para dispositivos com tela pequena */
+        height: 85vh; /* Ajusta para telas muito pequenas */
       }
     }
 
@@ -242,7 +242,7 @@
         if (mercadoAtual === "Bac Bo🎲") {
           sorteioAtual = Math.random() < 0.5 ? '🔵PLAYER SEM MARTINGALE' : '🔴BANKER SEM MARTINGALE';
         } else if (mercadoAtual === "Roleta🎰") {
-          sorteioAtual = `🎰 RACE ${Math.floor(Math.random() * 36)} E SEUS VIZINHOS`;
+          sorteioAtual = `🎰 NÚMERO SORTEADO: ${Math.floor(Math.random() * 37)}`;
         } else if (mercadoAtual === "Football Studio🃏") {
           sorteioAtual = Math.random() < 0.5 ? '🔵VISITANTE SEM MARTINGALE' : '🔴CASA SEM MARTINGALE';
         }
