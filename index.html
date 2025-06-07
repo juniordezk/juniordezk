@@ -17,11 +17,11 @@
       background: linear-gradient(to bottom right, #003300, #000000); /* Cor de fundo contínua */
       color: #ffffff;
       text-align: center;
-      padding: 0; /* Remover qualquer padding */
-      height: 100%; /* Garantir que o fundo ocupe toda a tela */
+      padding: 0;
+      height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: flex-start; /* Posiciona os itens no topo */
+      justify-content: flex-start;
       min-height: 100vh; /* Garante que a cor do fundo preencha a tela inteira */
     }
 
@@ -29,8 +29,8 @@
       font-size: 36px;
       font-weight: bold;
       color: #00ffcc;
-      margin-top: 50px; /* Abaixando o título para que ele não fique tão alto */
-      margin-bottom: 15px; /* Distância entre o título e os botões */
+      margin-top: 50px;
+      margin-bottom: 15px;
       letter-spacing: 2px;
     }
 
@@ -42,7 +42,7 @@
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      background-color: #888; /* Cor cinza por padrão */
+      background-color: #888;
       transition: background-color 0.3s, transform 0.2s;
     }
 
@@ -51,7 +51,7 @@
       opacity: 0.8;
     }
 
-    /* Efeito de clique (escurece o botão quando clicado) */
+    /* Efeito de clique */
     button:active {
       transform: scale(0.95);
     }
@@ -69,7 +69,7 @@
       white-space: pre-line;
     }
 
-    /* Animação apenas para "Buscando entrada..." */
+    /* Animação para "Buscando entrada..." */
     .buscando {
       color: #cccccc;
       animation: piscar 1s infinite;
@@ -89,7 +89,7 @@
       border: none;
     }
 
-    /* Responsividade para dispositivos móveis */
+    /* Responsividade */
     @media (max-width: 768px) {
       .apostas-container {
         height: 90vh;
@@ -107,25 +107,9 @@
       display: none;
     }
 
-    /* Estilo para bloquear interação até a senha ser correta */
-    #bloqueado {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.7);
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      z-index: 9999;
-    }
-
     /* Tela inicial de seleção */
     .selecionar-jogo {
-      margin-top: 20px; /* Abaixando os botões para que fiquem mais próximos do título */
+      margin-top: 20px;
     }
 
     .opcao-jogo {
@@ -139,26 +123,6 @@
 
     .opcao-jogo:hover {
       opacity: 0.8;
-    }
-
-    /* Botão de voltar (canto superior esquerdo) */
-    .voltar-btn {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      padding: 5px 12px;  /* Menor tamanho */
-      font-size: 14px;     /* Tamanho de fonte reduzido */
-      background-color: #ff6666;
-      color: #ffffff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      display: none; /* Inicialmente escondido */
-    }
-
-    .voltar-btn:hover {
-      background-color: #ff4444;
     }
 
     /* Cores para cada jogo */
@@ -176,7 +140,26 @@
 
     /* Ajustando o botão "Pedir Sinal" para ficar mais baixo */
     #buscarSinal {
-      margin-top: 30px; /* Abaixando o botão "Pedir Sinal" */
+      margin-top: 30px;
+    }
+
+    /* Estilo para o ícone de voltar (seta) */
+    .voltar-btn {
+      position: absolute;
+      top: 20px; /* Posiciona a seta no topo da tela */
+      left: 20px; /* Posiciona a seta no canto esquerdo */
+      font-size: 30px;
+      color: black; /* Cor preta para a seta */
+      cursor: pointer;
+      background: none;
+      border: none;
+      display: none; /* Inicialmente escondido */
+      transition: transform 0.3s;
+    }
+
+    /* Efeito ao passar o mouse */
+    .voltar-btn:hover {
+      transform: scale(1.2); /* Aumenta o tamanho ao passar o mouse */
     }
   </style>
 </head>
@@ -200,8 +183,8 @@
     <iframe class="apostas-container" src="https://m.reals.bet.br/live-casino" title="Casa de Apostas Real's Bet" allowfullscreen></iframe>
   </div>
 
-  <!-- Botão de voltar para a página de seleção -->
-  <button class="voltar-btn" onclick="voltarParaSelecao()">Voltar à seleção de jogo</button>
+  <!-- Ícone de voltar (seta) -->
+  <button class="voltar-btn" onclick="voltarParaSelecao()">&#8592;</button>
 
   <script>
     const senhaCorreta = "1234"; // Defina a senha aqui
@@ -235,11 +218,11 @@
       mercadoAtual = jogo;
       document.getElementById("selecionar-jogo").style.display = "none"; // Esconde as opções de jogo
       document.getElementById("conteudo").style.display = "block"; // Exibe o conteúdo do sorteio
-      document.querySelector(".voltar-btn").style.display = "inline-block"; // Exibe o botão de voltar
+      document.querySelector(".voltar-btn").style.display = "inline-block"; // Exibe o ícone de voltar
       const resultadoDiv = document.getElementById('resultado');
       resultadoDiv.textContent = `Jogo selecionado: ${mercadoAtual}`;
       
-      // Altera a cor do botão "Buscar Sinal" para a cor do jogo selecionado
+      // Altera a cor do botão "Pedir Sinal" para a cor do jogo selecionado
       if (mercadoAtual === "Bac Bo🎲") {
         document.getElementById("buscarSinal").style.backgroundColor = "blue";
       } else if (mercadoAtual === "Roleta🎰") {
@@ -260,7 +243,7 @@
         if (mercadoAtual === "Bac Bo🎲") {
           sorteioAtual = Math.random() < 0.5 ? '🔵PLAYER SEM MARTINGALE' : '🔴BANKER SEM MARTINGALE';
         } else if (mercadoAtual === "Roleta🎰") {
-          sorteioAtual = `🎰 ENTRAR NO NÚMERO ${Math.floor(Math.random() * 36)} E SEUS VIZINHOS`;
+          sorteioAtual = `🎰 NÚMERO SORTEADO: ${Math.floor(Math.random() * 37)}`;
         } else if (mercadoAtual === "Football Studio🃏") {
           sorteioAtual = Math.random() < 0.5 ? '🔵VISITANTE SEM MARTINGALE' : '🔴CASA SEM MARTINGALE';
         }
@@ -274,7 +257,7 @@
     function voltarParaSelecao() {
       document.getElementById("conteudo").style.display = "none"; // Esconde o conteúdo do sorteio
       document.getElementById("selecionar-jogo").style.display = "block"; // Exibe as opções de jogo novamente
-      document.querySelector(".voltar-btn").style.display = "none"; // Esconde o botão de voltar
+      document.querySelector(".voltar-btn").style.display = "none"; // Esconde o ícone de voltar
     }
   </script>
 
