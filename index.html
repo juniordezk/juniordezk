@@ -91,13 +91,13 @@
     /* Responsividade */
     @media (max-width: 768px) {
       .apostas-container {
-        height: 90vh; /* Ajusta para celulares de tela maior */
+        height: 90vh;
       }
     }
 
     @media (max-width: 480px) {
       .apostas-container {
-        height: 85vh; /* Ajusta para telas muito pequenas */
+        height: 85vh; /* Ajusta para dispositivos com tela pequena */
       }
     }
 
@@ -179,7 +179,7 @@
   <div id="conteudo">
     <button id="buscarSinal" onclick="buscarSinal()">BUSCAR SINAL</button>
     <div class="sinal-box" id="resultado"></div>
-    <iframe class="apostas-container" src="https://m.reals.bet.br/live-casino" title="Casa de Apostas Real's Bet" allowfullscreen></iframe>
+    <iframe class="apostas-container" id="gameFrame" src="" title="Casa de Apostas Real's Bet" allowfullscreen></iframe>
   </div>
 
   <!-- Ícone de voltar (seta) -->
@@ -221,14 +221,22 @@
       const resultadoDiv = document.getElementById('resultado');
       resultadoDiv.textContent = `Jogo selecionado: ${mercadoAtual}`;
       
-      // Altera a cor do botão "Pedir Sinal" para a cor do jogo selecionado
+      let linkJogo = "";
+
+      // Links para os jogos
       if (mercadoAtual === "Bac Bo🎲") {
-        document.getElementById("buscarSinal").style.backgroundColor = "blue";
+        linkJogo = "https://reals.bet.br/live-casino/game/1402430?provider=Evolution&from=%2Flive-casino";
+        document.getElementById("buscarSinal").style.backgroundColor = "blue"; // Cor do botão Bac Bo
       } else if (mercadoAtual === "Roleta🎰") {
-        document.getElementById("buscarSinal").style.backgroundColor = "red";
+        linkJogo = "https://reals.bet.br/live-casino/game/1402435?provider=Evolution&from=%2Flive-casino";
+        document.getElementById("buscarSinal").style.backgroundColor = "red"; // Cor do botão Roleta
       } else if (mercadoAtual === "Football Studio🃏") {
-        document.getElementById("buscarSinal").style.backgroundColor = "green";
+        linkJogo = "https://reals.bet.br/live-casino/game/1287886?provider=Evolution&from=%2Flive-casino";
+        document.getElementById("buscarSinal").style.backgroundColor = "green"; // Cor do botão Football Studio
       }
+
+      // Atualiza o iframe com o link do jogo selecionado
+      document.getElementById("gameFrame").src = linkJogo;
     }
 
     function buscarSinal() {
