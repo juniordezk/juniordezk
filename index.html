@@ -32,7 +32,6 @@
     button {
       padding: 15px 40px;
       font-size: 22px;
-      background-color: #00ffcc;
       color: #000;
       border: none;
       border-radius: 8px;
@@ -53,12 +52,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.3s ease;
       color: white;
       white-space: pre-line;
     }
 
-    /* Efeitos e animações */
+    /* Animação apenas para "Buscando entrada..." */
     .buscando {
       color: #cccccc;
       animation: piscar 1s infinite;
@@ -70,13 +68,8 @@
       100% { opacity: 1; }
     }
 
-    .azul {
-      color: white;
-      text-shadow: none;
-      animation: none;
-    }
-
-    .vermelho {
+    /* Sem animação para as opções de sorteio */
+    .azul, .vermelho {
       color: white;
       text-shadow: none;
       animation: none;
@@ -123,6 +116,25 @@
       font-size: 24px;
       z-index: 9999;
     }
+
+    /* Botão "Alternar Mercado" */
+    .alternar-mercado {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      padding: 5px 15px; /* Diminui o tamanho do botão */
+      font-size: 14px; /* Diminui o tamanho da fonte */
+      background-color: #00ffcc;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .alternar-mercado:hover {
+      background-color: #00ccaa;
+    }
   </style>
 </head>
 <body>
@@ -130,12 +142,27 @@
   <div id="bloqueado">Acesso restrito. Por favor, digite a senha para continuar.</div>
 
   <div class="logo">IA Júnior Martins</div>
-  <button onclick="buscarSinal()">BUSCAR SINAL</button>
+  <button id="buscarSinal" onclick="buscarSinal()">BUSCAR SINAL</button>
   <div class="sinal-box" id="resultado"></div>
+  
+  <!-- Botão para alternar mercado -->
+  <button class="alternar-mercado" onclick="alternarMercado()">Alternar Mercado</button>
 
   <script>
     const senhaCorreta = "1234"; // Defina a senha aqui
     let isSenhaCorreta = false; // Variável para verificar se a senha foi corretamente inserida
+    let mercadoAtual = "Bac Bo"; // Mercado inicial
+    const roletaOpcoes = [
+      "🎰4 e seus vizinhos",
+      "🎰9 e seus vizinhos",
+      "🎰26 e seus vizinhos",
+      "🎰10 e seus vizinhos"
+    ];
+    const footballStudioOpcoes = [
+      "🔵VISITANTE - PROBABILIDADE SEM GALE🎯",
+      "🔴CASA - PROBABILIDADE SEM GALE🎯"
+    ];
+    let sorteioAtual = "";
 
     // Função para verificar a senha
     const verificarSenha = () => {
@@ -155,25 +182,60 @@
     };
 
     // Executa a função ao carregar a página
-    window.onload = verificarSenha;
+    window.onload = () => {
+      verificarSenha();
+      // Define as cores dos botões para o mercado inicial (Bac Bo)
+      document.querySelector("#buscarSinal").style.backgroundColor = "blue";
+      document.querySelector(".alternar-mercado").style.backgroundColor = "blue";
+    };
 
     function buscarSinal() {
       const resultadoDiv = document.getElementById('resultado');
       resultadoDiv.textContent = "Buscando entrada...";
-resultadoDiv.classList.add('buscando');
-      resultadoDiv.classList.remove('azul', 'vermelho');
+      resultadoDiv.classList.add('buscando'); // Ativa a animação de piscar
+      resultadoDiv.classList.remove('azul', 'vermelho'); // Remove qualquer resultado anterior
 
       setTimeout(() => {
-        const sorteio = Math.random() < 0.5 ? 'azul' : 'vermelho';
+        // Sorteio dependendo do mercado atual
+        if (mercadoAtual === "Bac Bo") {
+          sorteioAtual = Math.random() < 0.5 ? '🔵PLAYER - PROBABILIDADE SEM GALE🎯' : '🔴BANKER - PROBABILIDADE SEM GALE🎯';
+        } else if (mercadoAtual === "Roleta") {
+          sorteioAtual = roletaOpcoes[Math.floor(Math.random() * roletaOpcoes.length)];
+        } else if (mercadoAtual === "Football Studio") {
+          sorteioAtual = footballStudioOpcoes[Math.floor(Math.random() * footballStudioOpcoes.length)];
+        }
 
-        if (sorteio === 'azul') {
-          resultadoDiv.textContent = "🔵PLAYER - PROBABILIDADE SEM GALE🎯";
+        // Exibe o resultado sem o prefixo "Resultado do sorteio:"
+        resultadoDiv.textContent = sorteioAtual;
+        // Após mostrar o resultado, remove a animação de piscar
+        resultadoDiv.classList.remove('buscando');
+
+        if (sorteioAtual.includes("🔵") || sorteioAtual.includes("🔴")) {
           resultadoDiv.classList.add('azul');
         } else {
-          resultadoDiv.textContent = "🔴BANKER - PROBABILIDADE SEM GALE🎯";
           resultadoDiv.classList.add('vermelho');
         }
       }, 2000); // Tempo de "buscando entrada"
+    }
+
+    // Função para alternar entre os mercados
+    function alternarMercado() {
+      if (mercadoAtual === "Bac Bo") {
+        mercadoAtual = "Roleta";
+        document.querySelector("#buscarSinal").style.backgroundColor = "red";
+        document.querySelector(".alternar-mercado").style.backgroundColor = "red";
+      } else if (mercadoAtual === "Roleta") {
+        mercadoAtual = "Football Studio";
+        document.querySelector("#buscarSinal").style.backgroundColor = "green";
+        document.querySelector(".alternar-mercado").style.backgroundColor = "green";
+      } else {
+        mercadoAtual = "Bac Bo";
+        document.querySelector("#buscarSinal").style.backgroundColor = "blue";
+        document.querySelector(".alternar-mercado").style.backgroundColor = "blue";
+      }
+
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.textContent = `Mercado Atual: ${mercadoAtual}`;
     }
   </script>
 
