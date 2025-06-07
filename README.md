@@ -1,17 +1,6 @@
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IA Júnior Martins</title>
-  <style>
-    /* Estilos gerais */
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%; /* Garante que o fundo ocupe toda a tela */
-    }
-
-    body {
+ body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(to bottom right, #003300, #000000);
       color: #ffffff;
