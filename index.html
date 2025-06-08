@@ -32,14 +32,17 @@
       font-size: 36px;
       font-weight: bold;
       color: #00ffcc;
-      margin-top: 50px;
+      margin-top: 30px;
       margin-bottom: 15px;
       letter-spacing: 2px;
+      max-width: 80%; /* Ajuste para evitar que a logo fique muito grande */
+      margin-left: auto;
+      margin-right: auto;
     }
 
     /* Tela de seleção de jogo */
     .selecionar-jogo {
-      margin-top: 50px;
+      margin-top: 20px;
     }
 
     .opcao-jogo {
@@ -219,6 +222,8 @@
 
   <!-- Tela de seleção de jogo -->
   <div id="selecionar-jogo" class="selecionar-jogo">
+    <!-- Logo da página -->
+    <img src="https://i.imgur.com/FEJm5Vf.png" alt="Logo IA Júnior Martins" class="logo">
     <button class="opcao-jogo bacbo-btn" onclick="selecionarJogo('Bac Bo🎲')">Bac Bo</button>
     <button class="opcao-jogo roleta-btn" onclick="selecionarJogo('Roleta🎰')">Roleta</button>
     <button class="opcao-jogo footballstudio-btn" onclick="selecionarJogo('Football Studio🃏')">Football Studio</button>
@@ -301,7 +306,7 @@
         if (mercadoAtual === "Bac Bo🎲") {
           sorteioAtual = Math.random() < 0.5 ? '🔵PLAYER SEM MARTINGALE' : '🔴BANKER SEM MARTINGALE';
         } else if (mercadoAtual === "Roleta🎰") {
-          sorteioAtual = `🎰 RACE ${Math.floor(Math.random() * 36)} E SEUS VIZINHOS`;
+          sorteioAtual = `🎰 RACE ${Math.floor(Math.random() * 36)} E SEUS VIZINHOS)}`;
         } else if (mercadoAtual === "Football Studio🃏") {
           sorteioAtual = Math.random() < 0.5 ? '🔵VISITANTE SEM MARTINGALE' : '🔴CASA SEM MARTINGALE';
         }
