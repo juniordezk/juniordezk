@@ -22,9 +22,7 @@
       flex-direction: column;
       justify-content: flex-start;
       min-height: 100vh; /* Garante que a cor do fundo preencha a tela inteira */
-      
-      /* Adicionando a imagem de fundo */
-      background-image: url('https://i.imgur.com/zxHzHjl.jpeg'); /* Link da imagem */
+      background-image: url('https://i.imgur.com/zxHzHjl.jpeg'); /* Link da imagem de fundo */
       background-size: cover; /* Faz a imagem cobrir toda a tela */
       background-position: center; /* Centraliza a imagem */
       background-attachment: fixed; /* Mantém a imagem fixa enquanto rola a página */
@@ -39,82 +37,9 @@
       letter-spacing: 2px;
     }
 
-    /* Botões padrão */
-    button {
-      padding: 15px 40px;
-      font-size: 22px;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      background-color: #888;
-      transition: background-color 0.3s, transform 0.2s;
-    }
-
-    /* Efeito ao passar o mouse */
-    button:hover {
-      opacity: 0.8;
-    }
-
-    /* Efeito de clique */
-    button:active {
-      transform: scale(0.95);
-    }
-
-    /* Box de resultado */
-    .sinal-box {
-      margin-top: 50px;
-      font-size: 28px;
-      font-weight: bold;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      white-space: pre-line;
-    }
-
-    /* Animação para "Buscando entrada..." */
-    .buscando {
-      color: #cccccc;
-      animation: piscar 1s infinite;
-    }
-
-    @keyframes piscar {
-      0% { opacity: 1; }
-      50% { opacity: 0.3; }
-      100% { opacity: 1; }
-    }
-
-    /* Estilo do iframe para exibir o site de apostas */
-    .apostas-container {
-      margin-top: 50px;
-      width: 100%;
-      height: 100vh; /* Aumenta a altura do iframe */
-      border: none;
-    }
-
-    /* Responsividade */
-    @media (max-width: 768px) {
-      .apostas-container {
-        height: 90vh;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .apostas-container {
-        height: 85vh; /* Ajusta para dispositivos com tela pequena */
-      }
-    }
-
-    /* Estilo para esconder o conteúdo até a senha ser correta */
-    #conteudo {
-      display: none;
-    }
-
-    /* Tela inicial de seleção */
+    /* Tela de seleção de jogo */
     .selecionar-jogo {
-      margin-top: 20px;
+      margin-top: 50px;
     }
 
     .opcao-jogo {
@@ -130,25 +55,7 @@
       opacity: 0.8;
     }
 
-    /* Cores para cada jogo */
-    .roleta-btn {
-      background-color: red;
-    }
-
-    .bacbo-btn {
-      background-color: blue;
-    }
-
-    .footballstudio-btn {
-      background-color: green;
-    }
-
-    /* Ajustando o botão "Pedir Sinal" para ficar mais baixo */
-    #buscarSinal {
-      margin-top: 30px;
-    }
-
-    /* Estilo para o ícone de voltar (seta) */
+    /* Estilo do botão de voltar */
     .voltar-btn {
       position: absolute;
       top: 20px; /* Posiciona a seta no topo da tela */
@@ -158,7 +65,7 @@
       cursor: pointer;
       background: none;
       border: none;
-      display: none; /* Inicialmente escondido */
+      display: inline-block; /* Exibe o ícone de voltar */
       transition: transform 0.3s;
     }
 
@@ -166,30 +73,123 @@
     .voltar-btn:hover {
       transform: scale(1.2); /* Aumenta o tamanho ao passar o mouse */
     }
+
+    /* Estilo do iframe para exibir o site de apostas */
+    .apostas-container {
+      margin-top: 50px;
+      width: 100%;
+      height: 100vh; /* Aumenta a altura do iframe */
+      border: none;
+    }
+
+    /* Estilo dos retângulos */
+    .retangulo {
+      width: 55%; /* Diminui um pouco a largura dos retângulos */
+      margin: 15px auto; /* Centraliza os retângulos na tela */
+      background-color: rgba(0, 0, 0, 0.7); /* Fundo preto com um pouco de transparência */
+      border: 2px solid #fff; /* Borda branca */
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Tamanho do botão dentro do retângulo */
+    .botao-retangulo {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px; /* Botão agora com texto um pouco menor */
+      color: #fff;
+      background-color: #444;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    /* Efeito ao passar o mouse no botão */
+    .botao-retangulo:hover {
+      opacity: 0.8;
+    }
+
+    /* Efeito de clique no botão */
+    .botao-retangulo:active {
+      transform: scale(0.95);
+    }
+
+    /* Retângulo 1: Botão de Buscar Sinal */
+    #buscarSinalRetangulo {
+      height: 40px; /* Retângulo superior com altura menor */
+    }
+
+    /* Retângulo 2: Jogo Selecionado com fundo mais escuro */
+    #jogoSelecionadoRetangulo {
+      height: 80px; /* Retângulo inferior ajustado para ser mais equilibrado */
+      background-color: rgba(0, 0, 0, 0.9); /* Fundo mais escuro para o retângulo inferior */
+      border: 2px solid #fff; /* Borda branca padrão */
+    }
+
+    /* Ajuste no texto de "Buscando Entrada" e "Resultado" */
+    .sinal-box {
+      font-size: 30px; /* Aumenta o tamanho da fonte proporcionalmente ao tamanho do retângulo */
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%; /* Centraliza o texto verticalmente no retângulo */
+      text-align: center;
+    }
+
+    /* Animação de piscar no texto "Buscando Entrada" */
+    .buscando {
+      animation: piscar 1s infinite;
+    }
+
+    @keyframes piscar {
+      0% { opacity: 1; }
+      50% { opacity: 0.3; }
+      100% { opacity: 1; }
+    }
+
+    /* Cor de fundo para quando estiver "Buscando Entrada" */
+    .buscando-bg {
+      background-color: #ffcc00; /* Amarelo quando está buscando */
+    }
+
+    /* Estilo da borda amarela */
+    .buscando-borda {
+      border-color: #ffcc00; /* Borda amarela durante a animação */
+    }
+
   </style>
 </head>
 <body>
 
   <div id="bloqueado">Acesso restrito. Por favor, digite a senha para continuar.</div>
 
-  <div class="logo">IA Júnior Martins</div>
-
-<!-- Tela de seleção de jogo -->
+  <!-- Tela de seleção de jogo -->
   <div id="selecionar-jogo" class="selecionar-jogo">
     <button class="opcao-jogo bacbo-btn" onclick="selecionarJogo('Bac Bo🎲')">Bac Bo</button>
     <button class="opcao-jogo roleta-btn" onclick="selecionarJogo('Roleta🎰')">Roleta</button>
     <button class="opcao-jogo footballstudio-btn" onclick="selecionarJogo('Football Studio🃏')">Football Studio</button>
   </div>
 
-  <!-- Conteúdo do sorteio -->
-  <div id="conteudo">
-    <button id="buscarSinal" onclick="buscarSinal()">BUSCAR SINAL</button>
-    <div class="sinal-box" id="resultado"></div>
-    <iframe class="apostas-container" id="gameFrame" src="" title="Casa de Apostas Real's Bet" allowfullscreen></iframe>
-  </div>
+  <!-- Conteúdo do sorteio (aparece ao selecionar o jogo) -->
+  <div id="conteudo" style="display: none; position: relative;">
+    <!-- Retângulo 1: Botão de Buscar Sinal -->
+    <div class="retangulo" id="buscarSinalRetangulo">
+      <button class="botao-retangulo" onclick="buscarSinal()">BUSCAR SINAL</button>
+    </div>
+    <!-- Retângulo 2: Jogo Selecionado -->
+    <div class="retangulo" id="jogoSelecionadoRetangulo">
+      <div id="resultado" class="sinal-box">Jogo Selecionado</div>
+    </div>
 
-  <!-- Ícone de voltar (seta) -->
-  <button class="voltar-btn" onclick="voltarParaSelecao()">&#8592;</button>
+    <!-- Exibindo o site da casa de apostas -->
+    <iframe class="apostas-container" id="gameFrame" src="" title="Casa de Apostas Real's Bet" allowfullscreen></iframe>
+    <button class="voltar-btn" onclick="voltarParaSelecao()">&#8592; Voltar</button>
+  </div>
 
   <script>
     const senhaCorreta = "1234"; // Defina a senha aqui
@@ -223,22 +223,17 @@
       mercadoAtual = jogo;
       document.getElementById("selecionar-jogo").style.display = "none"; // Esconde as opções de jogo
       document.getElementById("conteudo").style.display = "block"; // Exibe o conteúdo do sorteio
-      document.querySelector(".voltar-btn").style.display = "inline-block"; // Exibe o ícone de voltar
-      const resultadoDiv = document.getElementById('resultado');
-      resultadoDiv.textContent = `Jogo selecionado: ${mercadoAtual}`;
-      
+      limparResultado(); // Limpa o resultado ao mudar de jogo
+
       let linkJogo = "";
 
       // Links para os jogos
       if (mercadoAtual === "Bac Bo🎲") {
         linkJogo = "https://reals.bet.br/live-casino/game/1402430?provider=Evolution&from=%2Flive-casino";
-        document.getElementById("buscarSinal").style.backgroundColor = "blue"; // Cor do botão Bac Bo
       } else if (mercadoAtual === "Roleta🎰") {
         linkJogo = "https://reals.bet.br/live-casino/game/1402435?provider=Evolution&from=%2Flive-casino";
-        document.getElementById("buscarSinal").style.backgroundColor = "red"; // Cor do botão Roleta
       } else if (mercadoAtual === "Football Studio🃏") {
         linkJogo = "https://reals.bet.br/live-casino/game/1287886?provider=Evolution&from=%2Flive-casino";
-        document.getElementById("buscarSinal").style.backgroundColor = "green"; // Cor do botão Football Studio
       }
 
       // Atualiza o iframe com o link do jogo selecionado
@@ -249,26 +244,33 @@
       const resultadoDiv = document.getElementById('resultado');
       resultadoDiv.textContent = "Buscando entrada...";
       resultadoDiv.classList.add('buscando'); // Ativa a animação de piscar
-
+      document.getElementById("jogoSelecionadoRetangulo").classList.add('buscando-bg'); // Adiciona a cor de fundo amarela
+      document.getElementById("jogoSelecionadoRetangulo").classList.add('buscando-borda'); // Adiciona a borda amarela
       setTimeout(() => {
         // Sorteio dependendo do mercado atual
         let sorteioAtual = "";
         if (mercadoAtual === "Bac Bo🎲") {
           sorteioAtual = Math.random() < 0.5 ? '🔵PLAYER SEM MARTINGALE' : '🔴BANKER SEM MARTINGALE';
         } else if (mercadoAtual === "Roleta🎰") {
-          sorteioAtual = `🎰 ENTRA NO RACE ${Math.floor(Math.random() * 36)} E SEUS VIZINHOS`;
+          sorteioAtual = `🎰 NÚMERO SORTEADO: ${Math.floor(Math.random() * 37)}`;
         } else if (mercadoAtual === "Football Studio🃏") {
           sorteioAtual = Math.random() < 0.5 ? '🔵VISITANTE SEM MARTINGALE' : '🔴CASA SEM MARTINGALE';
         }
         resultadoDiv.textContent = sorteioAtual;
         resultadoDiv.classList.remove('buscando');
+        document.getElementById("jogoSelecionadoRetangulo").classList.remove('buscando-bg'); // Remove a cor de fundo amarela
+        document.getElementById("jogoSelecionadoRetangulo").classList.remove('buscando-borda'); // Remove a borda amarela
       }, 2000);
+    }
+
+    // Função para limpar o resultado ao mudar de jogo
+    function limparResultado() {
+      document.getElementById('resultado').textContent = '';
     }
 
     function voltarParaSelecao() {
       document.getElementById("conteudo").style.display = "none"; 
       document.getElementById("selecionar-jogo").style.display = "block"; 
-      document.querySelector(".voltar-btn").style.display = "none"; 
     }
   </script>
 
