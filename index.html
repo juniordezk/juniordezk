@@ -81,12 +81,12 @@
       transform: scale(1.2);
     }
 
-    /* ALTERADO: Estilo do iframe ajustado */
+    /* AJUSTADO: Estilo do iframe para exibir o site de apostas */
     .apostas-container {
       margin: 20px auto;
-      width: 90%;
-      height: 70vh;
-      max-width: 900px;
+      width: 95%;
+      height: 75vh;
+      max-width: 1000px;
       border: none;
       border-top: 2px solid black;
       border-radius: 10px;
@@ -206,9 +206,9 @@
         height: 60px;
       }
 
-      /* ALTERADO: Ajuste extra para o iframe em telas pequenas */
+      /* AJUSTADO: iframe menor em celular */
       .apostas-container {
-        height: 60vh;
+        height: 65vh;
       }
     }
   </style>
@@ -245,7 +245,6 @@
       let senha;
       while (!isSenhaCorreta) {
         senha = prompt("Digite a senha para acessar o conteúdo:");
-
         if (senha === senhaCorreta) {
           isSenhaCorreta = true;
           document.getElementById("conteudo").style.display = "none";
@@ -268,7 +267,6 @@
       limparResultado();
 
       let linkJogo = "";
-
       if (mercadoAtual === "Bac Bo🎲") {
         linkJogo = "https://reals.bet.br/live-casino/game/1402430?provider=Evolution&from=%2Flive-casino";
       } else if (mercadoAtual === "Roleta🎰") {
@@ -307,8 +305,8 @@
     }
 
     function voltarParaSelecao() {
-      document.getElementById("conteudo").style.display = "none"; 
-      document.getElementById("selecionar-jogo").style.display = "block"; 
+      document.getElementById("conteudo").style.display = "none";
+      document.getElementById("selecionar-jogo").style.display = "block";
     }
   </script>
 
