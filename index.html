@@ -84,7 +84,7 @@
       transform: scale(1.2); /* Aumenta o tamanho ao passar o mouse */
     }
 
-    .apostas-container {
+.apostas-container {
   margin-top: 50px;
   width: 90%;  /* Define a largura do iframe */
   height: 80vh; /* Define a altura do iframe */
@@ -102,10 +102,10 @@
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (min-width: 769px) {
   .apostas-container {
-    width: 85%; /* Mantém a largura menor em dispositivos móveis */
-    height: 80vh; /* Diminuindo ainda mais a altura em telas menores */
+    width: 85%; /* Ajusta a largura para telas maiores, no caso desktop */
+    height: 80vh; /* Ajusta a altura para não ocupar toda a tela */
   }
 }
 
