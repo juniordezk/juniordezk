@@ -86,12 +86,20 @@
 
     .apostas-container {
   margin-top: 50px;
-  width: 85%;  /* Ajusta a largura para 90% da tela */
-  height: 85vh; /* A altura foi reduzida para 80% da altura da tela */
-  border: none;
-  border-top: 2px solid black; /* Borda fina na parte superior */
+  width: 90%;  /* Define a largura do iframe */
+  height: 80vh; /* Define a altura do iframe */
+  border: 4px solid #000;  /* Borda preta mais grossa em torno do iframe */
+  border-radius: 10px; /* Bordas arredondadas */
   margin-left: auto;
   margin-right: auto; /* Centraliza o iframe */
+  overflow: hidden; /* Impede que o conteúdo dentro do iframe ultrapasse a área do iframe */
+}
+
+@media screen and (max-width: 768px) {
+  .apostas-container {
+    width: 90%; /* Ajusta a largura para telas menores */
+    height: 70vh; /* Ajusta a altura para telas menores */
+  }
 }
 
 @media screen and (max-width: 768px) {
