@@ -9,23 +9,23 @@
     html, body {
       margin: 0;
       padding: 0;
-      height: 100%;
+      height: 100%; /* Garante que a altura do body ocupe toda a tela */
     }
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #000000;
+      background: #000000; /* Cor de fundo preta */
       color: #ffffff;
       text-align: center;
       padding: 0;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      min-height: 100vh;
-      background-image: url('https://i.imgur.com/zxHzHjl.jpeg');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
+      min-height: 100vh; /* Garante que a cor do fundo preencha a tela inteira */
+      background-image: url('https://i.imgur.com/zxHzHjl.jpeg'); /* Link da imagem de fundo */
+      background-size: cover; /* Faz a imagem cobrir toda a tela */
+      background-position: center; /* Centraliza a imagem */
+      background-attachment: fixed; /* Mantém a imagem fixa enquanto rola a página */
     }
 
     .logo {
@@ -35,11 +35,12 @@
       margin-top: 30px;
       margin-bottom: 15px;
       letter-spacing: 2px;
-      max-width: 80%;
+      max-width: 80%; /* Ajuste para evitar que a logo fique muito grande */
       margin-left: auto;
       margin-right: auto;
     }
 
+    /* Tela de seleção de jogo */
     .selecionar-jogo {
       margin-top: 20px;
     }
@@ -51,9 +52,9 @@
       border-radius: 8px;
       cursor: pointer;
       transition: background-color 0.3s, transform 0.2s;
-      border: 2px solid #000;
-      background-color: #fff;
-      color: #000;
+      border: 2px solid #000; /* Bordas pretas */
+      background-color: #fff; /* Fundo branco */
+      color: #000; /* Texto preto */
     }
 
     .opcao-jogo:hover {
@@ -64,46 +65,40 @@
       transform: scale(0.95);
     }
 
+    /* Estilo do botão de voltar */
     .voltar-btn {
       position: absolute;
-      top: 20px;
-      left: 20px;
+      top: 20px; /* Posiciona a seta no topo da tela */
+      left: 20px; /* Posiciona a seta no canto esquerdo */
       font-size: 30px;
-      color: black;
+      color: black; /* Cor preta para a seta */
       cursor: pointer;
       background: none;
       border: none;
-      display: inline-block;
+      display: inline-block; /* Exibe o ícone de voltar */
       transition: transform 0.3s;
     }
 
+    /* Efeito ao passar o mouse */
     .voltar-btn:hover {
-      transform: scale(1.2);
+      transform: scale(1.2); /* Aumenta o tamanho ao passar o mouse */
     }
 
-   /* Estilo do iframe para exibir o site de apostas */
-.apostas-container {
-  margin: 40px auto;
-  width: 1200%;
-  height: 135vh; /* AUMENTADO para PC */
-  max-width: 1000px;
-  border: 2px;
-  border-top: 2px solid black;
-  border-radius: 10px;
-}
+    /* Estilo do iframe para exibir o site de apostas */
+    .apostas-container {
+      margin-top: 50px;
+      width: 100%;
+      height: 100vh; /* Aumenta a altura do iframe */
+      border: none;
+      border-top: 2px solid black; /* Borda fina na parte superior */
+    }
 
-@media screen and (max-width: 480px) {
-  .apostas-container {
-    height: 115vh; /* AUMENTADO para celular */
-  }
-}
-
-
+    /* Estilo dos retângulos */
     .retangulo {
-      width: 55%;
-      margin: 15px auto;
-      background-color: rgba(0, 0, 0, 0.7);
-      border: 2px solid #fff;
+      width: 55%; /* Diminui um pouco a largura dos retângulos */
+      margin: 15px auto; /* Centraliza os retângulos na tela */
+      background-color: rgba(0, 0, 0, 0.7); /* Fundo preto com um pouco de transparência */
+      border: 2px solid #fff; /* Borda branca */
       border-radius: 10px;
       padding: 10px;
       display: flex;
@@ -111,10 +106,11 @@
       align-items: center;
     }
 
+    /* Tamanho do botão dentro do retângulo */
     .botao-retangulo {
       width: 100%;
       padding: 12px;
-      font-size: 16px;
+      font-size: 16px; /* Botão agora com texto um pouco menor */
       color: #fff;
       background-color: #444;
       border: none;
@@ -123,34 +119,40 @@
       transition: background-color 0.3s, transform 0.2s;
     }
 
+    /* Efeito ao passar o mouse no botão */
     .botao-retangulo:hover {
       opacity: 0.8;
     }
 
+    /* Efeito de clique no botão */
     .botao-retangulo:active {
       transform: scale(0.95);
     }
 
+    /* Retângulo 1: Botão de Buscar Sinal */
     #buscarSinalRetangulo {
-      height: 40px;
+      height: 40px; /* Retângulo superior com altura menor */
     }
 
+    /* Retângulo 2: Jogo Selecionado com fundo mais escuro */
     #jogoSelecionadoRetangulo {
-      height: 80px;
-      background-color: rgba(0, 0, 0, 0.9);
-      border: 2px solid #fff;
+      height: 80px; /* Retângulo inferior ajustado para ser mais equilibrado */
+      background-color: rgba(0, 0, 0, 0.9); /* Fundo mais escuro para o retângulo inferior */
+      border: 2px solid #fff; /* Borda branca padrão */
     }
 
+    /* Ajuste no texto de "Buscando Entrada" e "Resultado" */
     .sinal-box {
-      font-size: 30px;
+      font-size: 30px; /* Aumenta o tamanho da fonte proporcionalmente ao tamanho do retângulo */
       color: #fff;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100%;
+      height: 100%; /* Centraliza o texto verticalmente no retângulo */
       text-align: center;
     }
 
+    /* Animação de piscar no texto "Buscando Entrada" */
     .buscando {
       animation: piscar 1s infinite;
     }
@@ -161,61 +163,63 @@
       100% { opacity: 1; }
     }
 
+    /* Cor de fundo para quando estiver "Buscando Entrada" */
     .buscando-bg {
-      background-color: #ffcc00;
+      background-color: #ffcc00; /* Amarelo quando está buscando */
     }
 
+    /* Estilo da borda amarela */
     .buscando-borda {
-      border-color: #ffcc00;
+      border-color: #ffcc00; /* Borda amarela durante a animação */
     }
 
+    /* Ajustes para telas menores */
     @media screen and (max-width: 768px) {
       .retangulo {
-        width: 80%;
-        margin: 10px auto;
-        padding: 8px;
+        width: 80%; /* Aumenta a largura do retângulo para dispositivos móveis */
+        margin: 10px auto; /* Centraliza os retângulos */
+        padding: 8px; /* Diminui o padding para ajustar o conteúdo */
       }
 
+      /* Ajuste no tamanho do botão dentro do retângulo */
       .botao-retangulo {
-        font-size: 14px;
-        padding: 10px;
+        font-size: 14px; /* Reduz o tamanho da fonte */
+        padding: 10px; /* Ajusta o padding para o botão */
       }
 
+      /* Ajustes no texto dentro do retângulo */
       .sinal-box {
-        font-size: 24px;
-        height: 80%;
+        font-size: 24px; /* Ajusta o tamanho da fonte para o celular */
+        height: 80%; /* Diminui o tamanho do texto para caber bem */
       }
 
+      /* Ajustes no botão de buscar sinal para dispositivos móveis */
       #buscarSinalRetangulo {
-        height: 35px;
+        height: 35px; /* Ajusta a altura do botão */
       }
 
+      /* Ajusta o retângulo de baixo */
       #jogoSelecionadoRetangulo {
-        height: 70px;
+        height: 70px; /* Ajusta a altura do retângulo */
       }
     }
 
     @media screen and (max-width: 480px) {
       .retangulo {
-        width: 90%;
+        width: 90%; /* Ajusta ainda mais a largura do retângulo para telas pequenas */
       }
 
       .botao-retangulo {
-        font-size: 12px;
-        padding: 8px;
+        font-size: 12px; /* Ajusta o tamanho da fonte do botão */
+        padding: 8px; /* Ajusta o padding */
       }
 
       .sinal-box {
-        font-size: 20px;
+        font-size: 20px; /* Ajusta a fonte */
       }
 
       #jogoSelecionadoRetangulo {
-        height: 60px;
-      }
-
-      /* AJUSTADO: iframe menor em celular */
-      .apostas-container {
-        height: 65vh;
+        height: 60px; /* Ajuste final para telas menores */
       }
     }
   </style>
@@ -224,6 +228,7 @@
 
   <div id="bloqueado">Acesso restrito. Por favor, digite a senha para continuar.</div>
 
+  <!-- Tela de seleção de jogo -->
   <div id="selecionar-jogo" class="selecionar-jogo">
     <img src="https://i.imgur.com/FEJm5Vf.png" alt="Logo IA Júnior Martins" class="logo"/>
     <button class="opcao-jogo bacbo-btn" onclick="selecionarJogo('Bac Bo🎲')">Bac Bo</button>
@@ -231,32 +236,39 @@
     <button class="opcao-jogo footballstudio-btn" onclick="selecionarJogo('Football Studio🃏')">Football Studio</button>
   </div>
 
+  <!-- Conteúdo do sorteio (aparece ao selecionar o jogo) -->
   <div id="conteudo" style="display: none; position: relative;">
+    <!-- Retângulo 1: Botão de Buscar Sinal -->
     <div class="retangulo" id="buscarSinalRetangulo">
       <button class="botao-retangulo" onclick="buscarSinal()">BUSCAR SINAL</button>
     </div>
+    <!-- Retângulo 2: Jogo Selecionado -->
     <div class="retangulo" id="jogoSelecionadoRetangulo">
       <div id="resultado" class="sinal-box">Jogo Selecionado</div>
     </div>
 
+    <!-- Exibindo o site da casa de apostas -->
     <iframe class="apostas-container" id="gameFrame" src="" title="Casa de Apostas Real's Bet" allowfullscreen></iframe>
     <button class="voltar-btn" onclick="voltarParaSelecao()">&#8592;</button>
   </div>
 
   <script>
-    const senhaCorreta = "1234";
-    let isSenhaCorreta = false;
+    const senhaCorreta = "1234"; // Defina a senha aqui
+    let isSenhaCorreta = false; // Variável para verificar se a senha foi corretamente inserida
     let mercadoAtual = "";
 
+    // Função para verificar a senha
     const verificarSenha = () => {
       let senha;
+      // Enquanto a senha estiver incorreta, manter a solicitação de senha
       while (!isSenhaCorreta) {
         senha = prompt("Digite a senha para acessar o conteúdo:");
+
         if (senha === senhaCorreta) {
           isSenhaCorreta = true;
-          document.getElementById("conteudo").style.display = "none";
-          document.getElementById("bloqueado").style.display = "none";
-          document.getElementById("selecionar-jogo").style.display = "block";
+          document.getElementById("conteudo").style.display = "none"; // Esconde o conteúdo inicialmente
+          document.getElementById("bloqueado").style.display = "none"; // Remove o bloqueio
+          document.getElementById("selecionar-jogo").style.display = "block"; // Exibe as opções de jogo
         } else {
           alert("Senha incorreta. Acesso negado.");
         }
@@ -267,13 +279,16 @@
       verificarSenha();
     };
 
+    // Função para selecionar o jogo
     function selecionarJogo(jogo) {
       mercadoAtual = jogo;
-      document.getElementById("selecionar-jogo").style.display = "none";
-      document.getElementById("conteudo").style.display = "block";
-      limparResultado();
+      document.getElementById("selecionar-jogo").style.display = "none"; // Esconde as opções de jogo
+      document.getElementById("conteudo").style.display = "block"; // Exibe o conteúdo do sorteio
+      limparResultado(); // Limpa o resultado ao mudar de jogo
 
       let linkJogo = "";
+
+      // Links para os jogos
       if (mercadoAtual === "Bac Bo🎲") {
         linkJogo = "https://reals.bet.br/live-casino/game/1402430?provider=Evolution&from=%2Flive-casino";
       } else if (mercadoAtual === "Roleta🎰") {
@@ -282,38 +297,41 @@
         linkJogo = "https://reals.bet.br/live-casino/game/1287886?provider=Evolution&from=%2Flive-casino";
       }
 
+      // Atualiza o iframe com o link do jogo selecionado
       document.getElementById("gameFrame").src = linkJogo;
     }
 
     function buscarSinal() {
       const resultadoDiv = document.getElementById('resultado');
       resultadoDiv.textContent = "Buscando entrada...";
-      resultadoDiv.classList.add('buscando');
-      document.getElementById("jogoSelecionadoRetangulo").classList.add('buscando-bg');
-      document.getElementById("jogoSelecionadoRetangulo").classList.add('buscando-borda');
+      resultadoDiv.classList.add('buscando'); // Ativa a animação de piscar
+      document.getElementById("jogoSelecionadoRetangulo").classList.add('buscando-bg'); // Adiciona a cor de fundo amarela
+      document.getElementById("jogoSelecionadoRetangulo").classList.add('buscando-borda'); // Adiciona a borda amarela
       setTimeout(() => {
+        // Sorteio dependendo do mercado atual
         let sorteioAtual = "";
         if (mercadoAtual === "Bac Bo🎲") {
           sorteioAtual = Math.random() < 0.5 ? '🔵PLAYER SEM MARTINGALE' : '🔴BANKER SEM MARTINGALE';
         } else if (mercadoAtual === "Roleta🎰") {
-          sorteioAtual = `🎰 RACE ${Math.floor(Math.random() * 36)} E SEUS VIZINHOS`;
+          sorteioAtual = `🎰 RACE ${Math.floor(Math.random() * 36)} E SEUS VIZINHOS)}`;
         } else if (mercadoAtual === "Football Studio🃏") {
           sorteioAtual = Math.random() < 0.5 ? '🔵VISITANTE SEM MARTINGALE' : '🔴CASA SEM MARTINGALE';
         }
         resultadoDiv.textContent = sorteioAtual;
         resultadoDiv.classList.remove('buscando');
-        document.getElementById("jogoSelecionadoRetangulo").classList.remove('buscando-bg');
-        document.getElementById("jogoSelecionadoRetangulo").classList.remove('buscando-borda');
+        document.getElementById("jogoSelecionadoRetangulo").classList.remove('buscando-bg'); // Remove a cor de fundo amarela
+        document.getElementById("jogoSelecionadoRetangulo").classList.remove('buscando-borda'); // Remove a borda amarela
       }, 2000);
     }
 
+    // Função para limpar o resultado ao mudar de jogo
     function limparResultado() {
       document.getElementById('resultado').textContent = '';
     }
 
     function voltarParaSelecao() {
-      document.getElementById("conteudo").style.display = "none";
-      document.getElementById("selecionar-jogo").style.display = "block";
+      document.getElementById("conteudo").style.display = "none"; 
+      document.getElementById("selecionar-jogo").style.display = "block"; 
     }
   </script>
 
