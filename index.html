@@ -162,6 +162,55 @@
       border-color: #ffcc00; /* Borda amarela durante a animação */
     }
 
+    /* Ajustes para telas menores */
+    @media screen and (max-width: 768px) {
+      .retangulo {
+        width: 80%; /* Aumenta a largura do retângulo para dispositivos móveis */
+        margin: 10px auto; /* Centraliza os retângulos */
+        padding: 8px; /* Diminui o padding para ajustar o conteúdo */
+      }
+
+      /* Ajuste no tamanho do botão dentro do retângulo */
+      .botao-retangulo {
+        font-size: 14px; /* Reduz o tamanho da fonte */
+        padding: 10px; /* Ajusta o padding para o botão */
+      }
+
+      /* Ajustes no texto dentro do retângulo */
+      .sinal-box {
+        font-size: 24px; /* Ajusta o tamanho da fonte para o celular */
+        height: 80%; /* Diminui o tamanho do texto para caber bem */
+      }
+
+      /* Ajustes no botão de buscar sinal para dispositivos móveis */
+      #buscarSinalRetangulo {
+        height: 35px; /* Ajusta a altura do botão */
+      }
+
+      /* Ajusta o retângulo de baixo */
+      #jogoSelecionadoRetangulo {
+        height: 70px; /* Ajusta a altura do retângulo */
+      }
+    }
+
+    @media screen and (max-width: 480px) {
+      .retangulo {
+        width: 90%; /* Ajusta ainda mais a largura do retângulo para telas pequenas */
+      }
+
+      .botao-retangulo {
+        font-size: 12px; /* Ajusta o tamanho da fonte do botão */
+        padding: 8px; /* Ajusta o padding */
+      }
+
+      .sinal-box {
+        font-size: 20px; /* Ajusta a fonte */
+      }
+
+      #jogoSelecionadoRetangulo {
+        height: 60px; /* Ajuste final para telas menores */
+      }
+    }
   </style>
 </head>
 <body>
