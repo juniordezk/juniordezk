@@ -86,15 +86,18 @@
 
     .apostas-container {
   margin-top: 50px;
-  width: 100%;
-  height: 80vh; /* A altura foi reduzida para 80% da altura da tela */
+  width: 85%;  /* Ajusta a largura para 90% da tela */
+  height: 85vh; /* A altura foi reduzida para 80% da altura da tela */
   border: none;
   border-top: 2px solid black; /* Borda fina na parte superior */
+  margin-left: auto;
+  margin-right: auto; /* Centraliza o iframe */
 }
 
 @media screen and (max-width: 768px) {
   .apostas-container {
-    height: 70vh; /* Diminuindo ainda mais a altura em telas menores */
+    width: 85%; /* Mantém a largura menor em dispositivos móveis */
+    height: 80vh; /* Diminuindo ainda mais a altura em telas menores */
   }
 }
 
