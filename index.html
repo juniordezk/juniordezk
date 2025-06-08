@@ -84,14 +84,19 @@
       transform: scale(1.2); /* Aumenta o tamanho ao passar o mouse */
     }
 
-    /* Estilo do iframe para exibir o site de apostas */
     .apostas-container {
-      margin-top: 50px;
-      width: 100%;
-      height: 100vh; /* Aumenta a altura do iframe */
-      border: none;
-      border-top: 2px solid black; /* Borda fina na parte superior */
-    }
+  margin-top: 50px;
+  width: 100%;
+  height: 80vh; /* A altura foi reduzida para 80% da altura da tela */
+  border: none;
+  border-top: 2px solid black; /* Borda fina na parte superior */
+}
+
+@media screen and (max-width: 768px) {
+  .apostas-container {
+    height: 70vh; /* Diminuindo ainda mais a altura em telas menores */
+  }
+}
 
     /* Estilo dos retângulos */
     .retangulo {
