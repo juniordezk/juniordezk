@@ -222,49 +222,14 @@
         height: 60px; /* Ajuste final para telas menores */
       }
     }
-
-    /* Adicionando campo de senha */
-    .senha-container {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 20px;
-      border-radius: 10px;
-      color: white;
-    }
-
-    .senha-input {
-      padding: 10px;
-      font-size: 20px;
-      width: 100%;
-      border: none;
-      border-radius: 8px;
-      margin-bottom: 10px;
-    }
-
-    .senha-button {
-      padding: 10px 20px;
-      font-size: 20px;
-      background-color: #444;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
 
-  <!-- Tela de bloqueio com o campo de senha -->
-  <div id="bloqueado" class="senha-container">
-    <input type="password" id="senhaInput" class="senha-input" placeholder="Digite a senha" />
-    <button class="senha-button" onclick="verificarSenha()">Entrar</button>
-  </div>
+  <div id="bloqueado">Acesso restrito. Por favor, digite a senha para continuar.</div>
 
   <!-- Tela de seleção de jogo -->
-  <div id="selecionar-jogo" class="selecionar-jogo" style="display: none;">
+  <div id="selecionar-jogo" class="selecionar-jogo">
     <img src="https://i.imgur.com/FEJm5Vf.png" alt="Logo IA Júnior Martins" class="logo"/>
     <button class="opcao-jogo bacbo-btn" onclick="selecionarJogo('Bac Bo🎲')">Bac Bo</button>
     <button class="opcao-jogo roleta-btn" onclick="selecionarJogo('Roleta🎰')">Roleta</button>
@@ -294,14 +259,19 @@
 
     // Função para verificar a senha
     const verificarSenha = () => {
-      let senha = document.getElementById('senhaInput').value;
-      if (senha === senhaCorreta) {
-        isSenhaCorreta = true;
-        document.getElementById("conteudo").style.display = "none"; // Esconde o conteúdo inicialmente
-        document.getElementById("bloqueado").style.display = "none"; // Remove o bloqueio
-        document.getElementById("selecionar-jogo").style.display = "block"; // Exibe as opções de jogo
-      } else {
-        alert("Senha incorreta. Acesso negado.");
+      let senha;
+      // Enquanto a senha estiver incorreta, manter a solicitação de senha
+      while (!isSenhaCorreta) {
+        senha = prompt("Digite a senha para acessar o conteúdo:");
+
+        if (senha === senhaCorreta) {
+          isSenhaCorreta = true;
+          document.getElementById("conteudo").style.display = "none"; // Esconde o conteúdo inicialmente
+          document.getElementById("bloqueado").style.display = "none"; // Remove o bloqueio
+          document.getElementById("selecionar-jogo").style.display = "block"; // Exibe as opções de jogo
+        } else {
+          alert("Senha incorreta. Acesso negado.");
+        }
       }
     };
 
@@ -343,7 +313,7 @@
         if (mercadoAtual === "Bac Bo🎲") {
           sorteioAtual = Math.random() < 0.5 ? '🔵PLAYER SEM MARTINGALE' : '🔴BANKER SEM MARTINGALE';
         } else if (mercadoAtual === "Roleta🎰") {
-          sorteioAtual = 🎰 RACE ${Math.floor(Math.random() * 36)} E SEUS VIZINHOS;
+          sorteioAtual = `🎰 RACE ${Math.floor(Math.random() * 36)} E SEUS VIZINHOS)}`;
         } else if (mercadoAtual === "Football Studio🃏") {
           sorteioAtual = Math.random() < 0.5 ? '🔵VISITANTE SEM MARTINGALE' : '🔴CASA SEM MARTINGALE';
         }
