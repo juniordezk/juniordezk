@@ -101,7 +101,7 @@
         }
         .counter {
             position: fixed;
-            top: 20px;
+            top: 261px; /* Abaixei o placar para 261px */
             right: 20px;
             background-color: #6c757d;
             color: white;
@@ -115,9 +115,10 @@
             left: 15px;
             background-color: transparent;
             border: none;
-            font-size: 30px;
+            font-size: 20px; /* Diminuí o tamanho da fonte do botão */
             cursor: pointer;
             color: #f1f1f1;
+            padding: 5px; /* Diminuí o padding também */
         }
         .lamp-button:hover {
             opacity: 0.7;
@@ -308,7 +309,7 @@
         
         // Adiciona ou mostra a mensagem "RED"
         const statusMessage = fileira.querySelector('.status-message');
-        statusMessage.textContent = 'RED';
+        statusMessage.textContent = 'Red';
         statusMessage.style.display = 'block'; // Mostra a mensagem "RED"
         
         // Atualiza o contador na tela
