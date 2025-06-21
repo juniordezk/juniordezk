@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Código Dados</title>
+    <title>CÓDIGO DADOS</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -103,7 +103,7 @@
         }
         .counter {
             position: fixed;
-            top: 275px;
+            top: 261px;
             right: 20px;
             background-color: #6c757d;
             color: white;
@@ -117,6 +117,7 @@
         }
         .dark-theme header {
             background-color: #666;
+            color: white; /* Cor do título em branco quando o tema for escuro */
         }
         .dark-theme .counter {
             background-color: #444;
@@ -174,22 +175,10 @@
             border: none;
         }
 
-        /* Novo campo para exibir os emojis do robô abaixo do título */
-        .robot-emojis-container {
-            display: none; /* Inicialmente escondido */
-            margin-top: 20px;
-            text-align: center;
-            font-size: 24px;
-            border: 2px solid #ddd; /* Borda fina */
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 5px;
-        }
-
         /* Imagem de bloqueio na tela de login */
         #loginScreen img {
-            width: 100%;
-            max-width: 400px;
+            width: 80%; /* Reduzido para 80% da largura da tela */
+            max-width: 300px; /* Limita o tamanho máximo da imagem */
             margin: 20px auto;
             display: block;
         }
@@ -198,7 +187,7 @@
 <body>
 
 <header onclick="toggleTheme()">
-    <h1>Código Dados</h1>
+    <h1>CÓDIGO DADOS</h1>
 </header>
 
 <!-- Tela de login com imagem -->
@@ -240,12 +229,6 @@
     <!-- Incorporando a casa de apostas -->
     <div class="betting-iframe-container">
         <iframe src="https://reals.bet.br/live-casino/game/1402430?provider=Evolution&from=%2Flive-casino" frameborder="0"></iframe>
-    </div>
-
-    <!-- Novo campo para os emojis do robô abaixo do título -->
-    <div class="robot-emojis-container" id="robotEmojisContainer">
-        <p>Emojis Selecionados:</p>
-        <div id="robotEmojis"></div>
     </div>
 </div>
 
@@ -437,15 +420,12 @@
     // Função para o botão "🤖"
     function robotAction() {
         const emojiWindow = document.getElementById('emojiWindow');
-        const robotEmojisContainer = document.getElementById('robotEmojisContainer');
         
-        // Alterna a visibilidade da janela de emojis e do campo de emojis do robô
-        if (emojiWindow.style.display === 'block' || robotEmojisContainer.style.display === 'block') {
+        // Alterna a visibilidade da janela de emojis
+        if (emojiWindow.style.display === 'block') {
             emojiWindow.style.display = 'none'; // Esconde a janela
-            robotEmojisContainer.style.display = 'none'; // Esconde o campo de emojis do robô
         } else {
             emojiWindow.style.display = 'block'; // Exibe a janela
-            robotEmojisContainer.style.display = 'block'; // Exibe o campo de emojis do robô
         }
     }
 
