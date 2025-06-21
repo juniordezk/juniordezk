@@ -101,7 +101,7 @@
         }
         .counter {
             position: fixed;
-            top: 265px; /* Abaixei o placar para 261px */
+            top: 261px; /* Abaixei o placar para 261px */
             right: 20px;
             background-color: #6c757d;
             color: white;
@@ -345,6 +345,13 @@
         queueItems.forEach(item => {
             item.classList.remove('dark-theme');
         });
+
+        // Torna o ícone de alterar tema invisível após ser clicado
+        const themeButton = document.querySelector('.lamp-button');
+        themeButton.style.opacity = 0; // Torna o botão invisível
+        setTimeout(() => {
+            themeButton.style.opacity = 1; // Faz ele voltar a ser visível após 1 segundo
+        }, 500);
     }
 </script>
 
