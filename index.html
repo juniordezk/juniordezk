@@ -17,7 +17,7 @@
             color: white;
             padding: 15px;
             text-align: center;
-            cursor: pointer; /* Faz o título ser clicável */
+            cursor: pointer;
         }
         .container {
             padding: 20px;
@@ -43,7 +43,7 @@
             padding: 10px 20px;
             font-size: 16px;
             cursor: pointer;
-            border: none; /* Remove the border */
+            border: none;
             border-radius: 5px;
         }
         .btn-green {
@@ -63,8 +63,8 @@
             cursor: pointer;
             background-color: transparent;
             padding: 5px;
-            border: 2px solid #ddd; /* Adicionando borda aos emojis */
-            border-radius: 5px; /* Borda arredondada */
+            border: 2px solid #ddd;
+            border-radius: 5px;
         }
         .emoji-btn:hover {
             opacity: 0.8;
@@ -79,7 +79,7 @@
             background-color: transparent;
             cursor: pointer;
             padding: 5px;
-            border: none; /* Remove the border */
+            border: none;
         }
         .fileira-buttons button:hover {
             opacity: 0.8;
@@ -103,13 +103,13 @@
         }
         .counter {
             position: fixed;
-            top: 275px; /* Abaixei o placar para 261px */
+            top: 261px;
             right: 20px;
             background-color: #6c757d;
             color: white;
-            padding: 5px 15px; /* Diminui o padding */
+            padding: 5px 15px;
             border-radius: 5px;
-            font-size: 14px; /* Diminui a fonte */
+            font-size: 14px;
         }
         .dark-theme {
             background-color: #333;
@@ -135,6 +135,44 @@
         .dark-theme .emoji-btn {
             color: #ccc;
         }
+        .emoji-window {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        .emoji-window button {
+            font-size: 24px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .suggestion-display {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        
+        /* Estilo para o iframe da casa de apostas */
+        .betting-iframe-container {
+            width: 100%;
+            max-width: 100%;
+            height: 600px;
+            border: 2px solid orange; /* Borda laranja fina */
+            margin-top: 20px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
     </style>
 </head>
 <body>
@@ -158,16 +196,35 @@
         <button class="btn btn-gray" onclick="clearInput()">✏️</button>
         <button class="btn btn-gray" onclick="removeLastQueue()">❌</button>
         <button class="btn btn-gray" onclick="clearAll()">🗑</button>
+        <!-- Novo botão 🤖 -->
+        <button class="btn btn-gray" onclick="robotAction()">🤖</button>
     </div>
 
     <div class="queue-container">
         <h3>Fila de Análises</h3>
         <div id="queue"></div>
     </div>
+
+    <!-- Exibição da sugestão -->
+    <div class="suggestion-display" id="suggestionDisplay"></div>
+
+    <!-- Incorporando a casa de apostas -->
+    <div class="betting-iframe-container">
+        <iframe src="https://reals.bet.br/live-casino/game/1402430?provider=Evolution&from=%2Flive-casino" frameborder="0"></iframe>
+    </div>
 </div>
 
 <div class="counter" id="counter">
     Placar: ✅ 0 x ⛔️ 0
+</div>
+
+<!-- Janela de Emojis -->
+<div class="emoji-window" id="emojiWindow">
+    <button onclick="addToInput('🔵')">🔵</button>
+    <button onclick="addToInput('🟡')">🟡</button>
+    <button onclick="addToInput('⚪️')">⚪️</button>
+    <button onclick="addToInput('🔴')">🔴</button>
+    <button class="btn btn-green" onclick="catalogEmojis()">Catalogar</button>
 </div>
 
 <script>
@@ -326,6 +383,39 @@
         queueItems.forEach(item => {
             item.classList.remove('dark-theme');
         });
+    }
+
+    // Função para o botão "🤖"
+    function robotAction() {
+        const emojiWindow = document.getElementById('emojiWindow');
+        
+        // Alterna a visibilidade da janela de emojis
+        if (emojiWindow.style.display === 'block') {
+            emojiWindow.style.display = 'none'; // Esconde a janela
+        } else {
+            emojiWindow.style.display = 'block'; // Exibe a janela
+        }
+    }
+
+    // Função para catalogar os emojis selecionados e exibir a sugestão na tela
+    function catalogEmojis() {
+        const suggestions = ['Sugestão 🔵', 'Sugestão 🔴'];
+        const randomSuggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
+        const suggestionDisplay = document.getElementById('suggestionDisplay');
+        
+        // Verifica o tema atual para definir a cor da sugestão
+        const isDarkTheme = document.body.classList.contains('dark-theme');
+        
+        // Alteração: Garantindo que a sugestão fique branca no tema escuro e preta no tema claro
+        suggestionDisplay.style.color = isDarkTheme ? 'white' : 'black';  // Altera a cor conforme o tema
+        suggestionDisplay.textContent = randomSuggestion; // Exibe a sugestão na tela
+        
+        // Remove a sugestão após 30 segundos
+        setTimeout(() => {
+            suggestionDisplay.textContent = '';
+        }, 30000);
+
+        document.getElementById('emojiWindow').style.display = 'none'; // Fecha a janela de emojis
     }
 </script>
 
