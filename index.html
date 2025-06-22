@@ -1,340 +1,52 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CATALOGADOR</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9; /* Fundo claro por padrão */
-            color: #333; /* Texto escuro */
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        header {
-            background-color: #003366; /* Azul escuro */
-            color: white;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-        }
-        .container {
-            padding: 20px;
-        }
-        .input-container {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .emoji-btn {
-            font-size: 24px;
-            margin: 5px;
-            cursor: pointer;
-            background-color: transparent;
-            padding: 10px;
-            border: none; /* Remove a borda */
-            outline: none; /* Remove o contorno do foco */
-        }
-        .emoji-btn:hover {
-            opacity: 0.8;
-        }
-        .delete-emoji-btn {
-            font-size: 20px;
-            cursor: pointer;
-            background-color: transparent;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            color: red;
-        }
+    <title>Falar Texto em Áudio</title>
+    <script>
+        var voices = [];
 
-        .suggestion-display, .analyzing-message {
-            margin-top: 0px; /* Ajusta a margem superior para subir ainda mais as mensagens */
-            font-size: 20px;
-            font-weight: normal; /* Fonte mais fina */
-            text-align: center;
-        }
-
-        /* Estilo para a animação "analisando" */
-        .analyzing-message {
-            opacity: 0;
-            animation: fadeInOut 3s ease-in-out forwards;
-        }
-
-        /* Animação para o efeito suave de aparecer e desaparecer */
-        @keyframes fadeInOut {
-            0% {
-                opacity: 0;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
+        // Função para carregar as vozes disponíveis
+        function carregarVoices() {
+            voices = speechSynthesis.getVoices();
+            // Tenta forçar a seleção de voz em pt-BR, se disponível
+            var vozSelecionada = voices.find(voz => voz.lang === "pt-BR");
+            if (vozSelecionada) {
+                alert("Voz encontrada: " + vozSelecionada.name);
+            } else {
+                alert("Voz brasileira não encontrada. Usando a voz padrão.");
             }
         }
 
-        /* Emojis do robô visíveis no topo */
-        .emoji-container {
-            display: none;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        /* Exibe a container de emojis quando o botão do robô é clicado */
-        .emoji-container.show {
-            display: block;
-        }
-
-        .betting-iframe-container {
-            width: 100%;
-            max-width: 100%;
-            height: 600px; /* Altura padrão para telas maiores */
-            border: 2px solid orange; /* Borda laranja fina */
-            margin-top: 20px;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Tabela de emojis com números */
-        .emoji-table {
-            display: none; /* Escondida por padrão */
-            margin-top: 20px;
-            text-align: center;
-            font-size: 20px;
-        }
-
-        .emoji-table button {
-            padding: 10px;
-            margin: 5px;
-            cursor: pointer;
-            background-color: transparent;
-            border: 2px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .emoji-table button:hover {
-            opacity: 0.8;
-        }
-
-        /* Aumentando a altura do iframe para dispositivos móveis */
-        @media (max-width: 768px) {
-            .betting-iframe-container {
-                height: 800px; /* Aumenta a altura para telas menores */
+        // Função para falar o texto com a voz selecionada
+        function falar() {
+            var texto = document.getElementById("texto").value;
+            if (texto.trim() === "") {
+                alert("Digite um texto para falar.");
+                return;
             }
+            
+            var synth = window.speechSynthesis;
+            var utterThis = new SpeechSynthesisUtterance(texto);
+
+            // Se houver uma voz brasileira, usa ela
+            var vozSelecionada = voices.find(voz => voz.lang === "pt-BR");
+            if (vozSelecionada) {
+                utterThis.voice = vozSelecionada;
+            }
+
+            // Falar o texto
+            synth.speak(utterThis);
         }
 
-        /* Imagem de bloqueio na tela de login */
-        #loginScreen img {
-            width: 80%; /* Reduzido para 80% da largura da tela */
-            max-width: 300px; /* Limita o tamanho máximo da imagem */
-            margin: 20px auto;
-            display: block;
-        }
-
-        /* Esconde o título na tela de bloqueio */
-        #mainHeader {
-            display: none;
-        }
-
-        /* Estilo para o tema escuro */
-        .dark-theme {
-            background-color: #000000; /* Alterado para preto bem escuro */
-            color: #fff; /* Texto claro */
-        }
-
-        .dark-theme header {
-            background-color: #121212; /* Cabeçalho mais escuro no tema escuro */
-            color: white; /* Título em branco no tema escuro */
-        }
-
-        /* Ajuste de cor das mensagens conforme o tema */
-        .dark-theme .suggestion-display, .dark-theme .analyzing-message {
-            color: white; /* Mensagens em branco no tema escuro */
-        }
-
-    </style>
+        // Carregar as vozes assim que o conteúdo estiver pronto
+        window.speechSynthesis.onvoiceschanged = carregarVoices;
+    </script>
 </head>
 <body>
-
-<header id="mainHeader" onclick="toggleTheme()">
-    <h1>CATALOGADOR</h1>
-</header>
-
-<!-- Tela de login com imagem -->
-<div id="loginScreen" style="display:block; text-align:center; margin-top:50px;">
-    <img src="https://i.imgur.com/yoUFcje.png" alt="Imagem de Bloqueio">
-    <h2>Digite a Senha</h2>
-    <input type="password" id="password" placeholder="Senha" />
-    <button onclick="checkPassword()">Acessar</button>
-</div>
-
-<!-- Conteúdo protegido -->
-<div class="container" id="content" style="display:none;">
-    <!-- Exibição dos emojis para seleção -->
-    <div class="emoji-container" id="emojiContainer">
-        <button class="emoji-btn" onclick="addToInput('⚪️')">⚪️</button>
-        <button class="emoji-btn" onclick="addToInput('🟡')">🟡</button>
-        <button class="emoji-btn" onclick="addToInput('🔵')">🔵</button>
-        <button class="emoji-btn" onclick="addToInput('🔴')">🔴</button>
-        <button class="emoji-btn" onclick="showEmojiTable()">🔢</button> <!-- Novo botão para mostrar a tabela -->
-    </div>
-
-    <!-- Tabela de emojis numerados -->
-    <div class="emoji-table" id="emojiTable">
-        <button onclick="addToInput('3')">3</button>
-        <button onclick="addToInput('4')">4</button>
-        <button onclick="addToInput('5')">5</button>
-        <button onclick="addToInput('6')">6</button>
-        <button onclick="addToInput('7')">7</button>
-        <button onclick="addToInput('8')">8</button>
-        <button onclick="addToInput('9')">9</button>
-        <button onclick="addToInput('10')">10</button>
-        <button onclick="addToInput('11')">11</button>
-        <button onclick="addToInput('12')">12</button>
-    </div>
-
-    <!-- Campo de entrada para emojis -->
-    <div class="input-container">
-        <input type="text" id="inputField" placeholder="Selecione um padrão" readonly/>
-    </div>
-
-    <!-- Botão do robô -->
-    <button class="emoji-btn" onclick="robotAction()">🤖</button>
-
-    <!-- Botão 🗑 para apagar o último emoji -->
-    <button class="delete-emoji-btn" id="deleteLastEmoji" style="display:none;" onclick="deleteLastEmoji()">🗑</button>
-
-    <!-- Exibição da sugestão -->
-    <div class="suggestion-display" id="suggestionDisplay"></div>
-
-    <!-- Exibição da mensagem "analisando" -->
-    <div class="analyzing-message" id="analyzingMessage" style="display:none;">Analisando...</div>
-
-    <!-- Incorporando a casa de apostas -->
-    <div class="betting-iframe-container">
-        <iframe src="https://reals.bet.br/live-casino/game/1402430?provider=Evolution&from=%2Flive-casino" frameborder="0"></iframe>
-    </div>
-</div>
-
-<script>
-    let emojiCount = 0; // Contador para os emojis
-    let emojis = []; // Armazenar os emojis digitados no campo de entrada
-    let suggestionTimeout; // Armazenar o tempo da sugestão
-    let analyzingTimeout; // Armazenar o tempo do "analisando"
-    let suggestionDisplayed = false; // Verifica se a sugestão já foi exibida
-
-    // Função para verificar a senha
-    function checkPassword() {
-        const password = document.getElementById('password').value;
-        if (password === '2021') {
-            // Senha correta, libera o conteúdo e mostra o título
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('content').style.display = 'block';
-            document.getElementById('mainHeader').style.display = 'block'; // Exibe o título
-        } else {
-            alert('Senha incorreta. Tente novamente.');
-        }
-    }
-
-    // Função para adicionar emojis ao campo de entrada
-    function addToInput(value) {
-        const inputField = document.getElementById('inputField');
-        
-        // Se o campo já tiver valor, adiciona um hífen antes de adicionar o novo valor
-        if (inputField.value !== '') {
-            inputField.value += '-';
-        }
-        inputField.value += value; // Adiciona o emoji ou número no campo
-        emojis.push(value); // Adiciona o emoji ou número ao array para controle
-
-        // Se já estiver mostrando a mensagem "analisando", não reinicia
-        if (emojis.length > 0) {
-            // Resetando e exibindo a mensagem "analisando"
-            clearTimeout(analyzingTimeout);
-            clearTimeout(suggestionTimeout);
-            showAnalyzingMessage();
-
-            // Exibe a sugestão após 3 segundos
-            suggestionTimeout = setTimeout(() => {
-                showSuggestion(); // Exibe a sugestão aleatória com a porcentagem
-            }, 3000);
-        }
-    }
-
-    // Função para alternar o tema
-    function toggleTheme() {
-        const body = document.body;
-        const header = document.querySelector('header');
-        
-        body.classList.toggle('dark-theme');
-        header.classList.toggle('dark-theme');
-    }
-
-    // Função para mostrar a tabela de emojis
-    function showEmojiTable() {
-        const table = document.getElementById('emojiTable');
-        table.style.display = table.style.display === 'block' ? 'none' : 'block'; // Alterna a visibilidade da tabela
-    }
-
-    // Função para o botão "🤖"
-    function robotAction() {
-        const emojiContainer = document.getElementById('emojiContainer');
-        const deleteButton = document.getElementById('deleteLastEmoji');
-        
-        // Alterna a visibilidade da container de emojis
-        emojiContainer.classList.toggle('show'); // Exibe ou esconde os emojis
-        deleteButton.style.display = emojiContainer.classList.contains('show') ? 'block' : 'none'; // Exibe o botão de apagar se os emojis estiverem visíveis
-    }
-
-    // Função para apagar o último emoji digitado
-    function deleteLastEmoji() {
-        if (emojis.length > 0) {
-            emojis.pop(); // Remove o último emoji do array
-            const inputField = document.getElementById('inputField');
-            inputField.value = emojis.join('-'); // Atualiza o campo de entrada com os emojis restantes e hífens
-        }
-    }
-
-    // Função para exibir a sugestão aleatória com a porcentagem
-    function showSuggestion() {
-        const suggestionDisplay = document.getElementById('suggestionDisplay');
-        const suggestions = ['🔴', '🔵'];
-        const randomSuggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
-
-        // Gerar uma porcentagem entre 64.0% e 100.0%
-        let percentage = Math.random() * (100 - 64) + 64; 
-        // Ajustar a probabilidade para que a porcentagem seja mais difícil de sair de 90%
-        if (percentage > 90) {
-            percentage = Math.random() * (100 - 90) + 90; // Força a porcentagem a ser maior que 90% se estiver acima disso
-        }
-
-        suggestionDisplay.textContent = `Sugestão ${randomSuggestion} (${percentage.toFixed(1)}%)`; // Exibe a sugestão com a porcentagem
-
-        // Remove a sugestão após 30 segundos
-        setTimeout(() => {
-            suggestionDisplay.textContent = '';
-            suggestionDisplayed = false;
-        }, 30000);
-    }
-
-    // Função para exibir a mensagem "analisando"
-    function showAnalyzingMessage() {
-        const analyzingMessage = document.getElementById('analyzingMessage');
-        analyzingMessage.style.display = 'block'; // Exibe a mensagem "Analisando..."
-
-        // Remove a mensagem "analisando" após 3 segundos
-        analyzingTimeout = setTimeout(() => {
-            analyzingMessage.style.display = 'none'; // Esconde a mensagem "Analisando..."
-        }, 3000);
-    }
-</script>
-
+    <h1>Falar Texto em Áudio</h1>
+    <textarea id="texto" rows="4" cols="50" placeholder="Digite algo para falar..."></textarea><br><br>
+    <button onclick="falar()">Falar</button>
 </body>
 </html>
