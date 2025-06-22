@@ -3,164 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CÓDIGO DADOS</title>
+    <title>CATALOGADOR</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            background-color: #f4f4f9; /* Fundo claro por padrão */
+            color: #333; /* Texto escuro */
             margin: 0;
             padding: 0;
             transition: background-color 0.3s, color 0.3s;
         }
         header {
-            background-color: #007bff;
+            background-color: #007bff; /* Azul padrão */
             color: white;
             padding: 15px;
             text-align: center;
             cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
         }
         .container {
             padding: 20px;
         }
         .input-container {
             margin-bottom: 20px;
-        }
-        .queue-container {
-            margin-top: 20px;
-        }
-        .queue-item {
-            background-color: #fff;
-            border: 1px solid #ddd;
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-        }
-        .btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 5px;
-        }
-        .btn-green {
-            background-color: #28a745;
-            color: white;
-        }
-        .btn-gray {
-            background-color: #6c757d;
-            color: white;
-        }
-        .btn:hover {
-            opacity: 0.8;
+            text-align: center;
         }
         .emoji-btn {
             font-size: 24px;
             margin: 5px;
             cursor: pointer;
             background-color: transparent;
-            padding: 5px;
+            padding: 10px;
             border: 2px solid #ddd;
             border-radius: 5px;
         }
         .emoji-btn:hover {
             opacity: 0.8;
         }
-        .fileira-buttons {
-            display: flex;
-            align-items: center;
-        }
-        .fileira-buttons button {
-            font-size: 14px;
-            margin-left: 5px;
-            background-color: transparent;
-            cursor: pointer;
-            padding: 5px;
-            border: none;
-        }
-        .fileira-buttons button:hover {
-            opacity: 0.8;
-        }
-        .green-fileira {
-            background-color: #28a745;
-            color: white;
-        }
-        .red-fileira {
-            background-color: #dc3545;
-            color: white;
-        }
-        .status-message {
-            font-size: 16px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-weight: bold;
-            color: white;
-        }
-        .counter {
-            position: fixed;
-            top: 261px;
-            right: 20px;
-            background-color: #6c757d;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        .dark-theme {
-            background-color: #333;
-            color: #ccc;
-        }
-        .dark-theme header {
-            background-color: #666;
-            color: white; /* Cor do título em branco quando o tema for escuro */
-        }
-        .dark-theme .counter {
-            background-color: #444;
-        }
-        .dark-theme .queue-item {
-            background-color: #444;
-            color: #ccc;
-            border: 1px solid #666;
-        }
-        .dark-theme .btn-green {
-            background-color: #20c997;
-        }
-        .dark-theme .btn-gray {
-            background-color: #868e96;
-        }
-        .dark-theme .emoji-btn {
-            color: #ccc;
-        }
-        .emoji-window {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            z-index: 1000;
-        }
-        .emoji-window button {
-            font-size: 24px;
-            margin: 10px;
-            cursor: pointer;
-        }
-        .suggestion-display {
-            margin-top: 20px;
+        .delete-emoji-btn {
             font-size: 20px;
-            font-weight: bold;
+            cursor: pointer;
+            background-color: transparent;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: red;
+        }
+
+        .suggestion-display, .analyzing-message {
+            margin-top: 0px; /* Ajusta a margem superior para subir ainda mais as mensagens */
+            font-size: 20px;
+            font-weight: normal; /* Fonte mais fina */
             text-align: center;
         }
 
-        /* Estilo para o iframe da casa de apostas */
+        /* Estilo para a animação "analisando" */
+        .analyzing-message {
+            opacity: 0;
+            animation: fadeInOut 3s ease-in-out forwards;
+        }
+
+        /* Animação para o efeito suave de aparecer e desaparecer */
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Emojis do robô visíveis no topo */
+        .emoji-container {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /* Exibe a container de emojis quando o botão do robô é clicado */
+        .emoji-container.show {
+            display: block;
+        }
+
         .betting-iframe-container {
             width: 100%;
             max-width: 100%;
@@ -173,6 +100,27 @@
             width: 100%;
             height: 100%;
             border: none;
+        }
+
+        /* Tabela de emojis com números */
+        .emoji-table {
+            display: none; /* Escondida por padrão */
+            margin-top: 20px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .emoji-table button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            background-color: transparent;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .emoji-table button:hover {
+            opacity: 0.8;
         }
 
         /* Aumentando a altura do iframe para dispositivos móveis */
@@ -189,17 +137,39 @@
             margin: 20px auto;
             display: block;
         }
+
+        /* Esconde o título na tela de bloqueio */
+        #mainHeader {
+            display: none;
+        }
+
+        /* Estilo para o tema escuro */
+        .dark-theme {
+            background-color: #333; /* Fundo escuro */
+            color: #ccc; /* Texto claro */
+        }
+
+        .dark-theme header {
+            background-color: #666; /* Cabeçalho cinza escuro */
+            color: white; /* Título em branco no tema escuro */
+        }
+
+        /* Ajuste de cor das mensagens conforme o tema */
+        .dark-theme .suggestion-display, .dark-theme .analyzing-message {
+            color: white; /* Mensagens em branco no tema escuro */
+        }
+
     </style>
 </head>
 <body>
 
-<header onclick="toggleTheme()">
-    <h1>CÓDIGO DADOS</h1>
+<header id="mainHeader" onclick="toggleTheme()">
+    <h1>CATALOGADOR</h1>
 </header>
 
 <!-- Tela de login com imagem -->
 <div id="loginScreen" style="display:block; text-align:center; margin-top:50px;">
-    <img src="https://i.imgur.com/1mJrftV.jpeg" alt="Imagem de Bloqueio">
+    <img src="https://i.imgur.com/yoUFcje.png" alt="Imagem de Bloqueio">
     <h2>Digite a Senha</h2>
     <input type="password" id="password" placeholder="Senha" />
     <button onclick="checkPassword()">Acessar</button>
@@ -207,31 +177,45 @@
 
 <!-- Conteúdo protegido -->
 <div class="container" id="content" style="display:none;">
-    <div class="input-container">
-        <label for="inputField">Clique em um emoji para adicionar ao campo:</label><br>
-        <input type="text" id="inputField" placeholder="Exemplo: 🟩, 🟪" readonly/>
-        <div>
-            <button class="emoji-btn" onclick="addToInput('🟩')">🟩</button>
-            <button class="emoji-btn" onclick="addToInput('🟪')">🟪</button>
-            <button class="emoji-btn" onclick="addToInput('🟡')">🟡</button>
-            <button class="emoji-btn" onclick="addToInput('🔵')">🔵</button>
-            <button class="emoji-btn" onclick="addToInput('🔴')">🔴</button>
-        </div>
-        <button class="btn btn-green" onclick="addToQueue()">☑️</button>
-        <button class="btn btn-gray" onclick="clearInput()">✏️</button>
-        <button class="btn btn-gray" onclick="removeLastQueue()">❌</button>
-        <button class="btn btn-gray" onclick="clearAll()">🗑</button>
-        <!-- Novo botão 🤖 -->
-        <button class="btn btn-gray" onclick="robotAction()">🤖</button>
+    <!-- Exibição dos emojis para seleção -->
+    <div class="emoji-container" id="emojiContainer">
+        <button class="emoji-btn" onclick="addToInput('⚪️')">⚪️</button>
+        <button class="emoji-btn" onclick="addToInput('🟡')">🟡</button>
+        <button class="emoji-btn" onclick="addToInput('🔵')">🔵</button>
+        <button class="emoji-btn" onclick="addToInput('🔴')">🔴</button>
+        <button class="emoji-btn" onclick="showEmojiTable()">🔢</button> <!-- Novo botão para mostrar a tabela -->
     </div>
 
-    <div class="queue-container">
-        <h3>Fila de Análises</h3>
-        <div id="queue"></div>
+    <!-- Tabela de emojis numerados -->
+    <div class="emoji-table" id="emojiTable">
+        <button onclick="addToInput('3')">3</button>
+        <button onclick="addToInput('4')">4</button>
+        <button onclick="addToInput('5')">5</button>
+        <button onclick="addToInput('6')">6</button>
+        <button onclick="addToInput('7')">7</button>
+        <button onclick="addToInput('8')">8</button>
+        <button onclick="addToInput('9')">9</button>
+        <button onclick="addToInput('10')">10</button>
+        <button onclick="addToInput('11')">11</button>
+        <button onclick="addToInput('12')">12</button>
     </div>
+
+    <!-- Campo de entrada para emojis -->
+    <div class="input-container">
+        <input type="text" id="inputField" placeholder="Selecione um padrão" readonly/>
+    </div>
+
+    <!-- Botão do robô -->
+    <button class="btn btn-gray" onclick="robotAction()">🤖</button>
+
+    <!-- Botão 🗑 para apagar o último emoji -->
+    <button class="delete-emoji-btn" id="deleteLastEmoji" style="display:none;" onclick="deleteLastEmoji()">🗑</button>
 
     <!-- Exibição da sugestão -->
     <div class="suggestion-display" id="suggestionDisplay"></div>
+
+    <!-- Exibição da mensagem "analisando" -->
+    <div class="analyzing-message" id="analyzingMessage" style="display:none;">Analisando...</div>
 
     <!-- Incorporando a casa de apostas -->
     <div class="betting-iframe-container">
@@ -239,33 +223,21 @@
     </div>
 </div>
 
-<div class="counter" id="counter" style="display:none;">
-    Placar: ✅ 0 x ⛔️ 0
-</div>
-
-<!-- Janela de Emojis -->
-<div class="emoji-window" id="emojiWindow">
-    <button onclick="addToInput('🔵')">🔵</button>
-    <button onclick="addToInput('🟡')">🟡</button>
-    <button onclick="addToInput('⚪️')">⚪️</button>
-    <button onclick="addToInput('🔴')">🔴</button>
-    <button class="btn btn-green" onclick="catalogEmojis()">Catalogar</button>
-</div>
-
 <script>
     let emojiCount = 0; // Contador para os emojis
-    let greenCount = 0; // Contador para os "Green"
-    let redCount = 0; // Contador para os "RED"
-    let robotEmojis = []; // Armazenar os emojis selecionados pelo robô
+    let emojis = []; // Armazenar os emojis digitados no campo de entrada
+    let suggestionTimeout; // Armazenar o tempo da sugestão
+    let analyzingTimeout; // Armazenar o tempo do "analisando"
+    let suggestionDisplayed = false; // Verifica se a sugestão já foi exibida
 
     // Função para verificar a senha
     function checkPassword() {
         const password = document.getElementById('password').value;
         if (password === '2021') {
-            // Senha correta, libera o conteúdo
+            // Senha correta, libera o conteúdo e mostra o título
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('content').style.display = 'block';
-            document.getElementById('counter').style.display = 'block'; // Exibe o placar
+            document.getElementById('mainHeader').style.display = 'block'; // Exibe o título
         } else {
             alert('Senha incorreta. Tente novamente.');
         }
@@ -274,187 +246,93 @@
     // Função para adicionar emojis ao campo de entrada
     function addToInput(value) {
         const inputField = document.getElementById('inputField');
-        emojiCount++; // Incrementa o contador
-
-        // Lógica para inserir "x" entre o segundo e o terceiro emoji, "=" entre o quarto e o quinto
-        if (emojiCount === 2) {
-            inputField.value += value + 'x';
-        } else if (emojiCount === 4) {
-            inputField.value += value + '=';
-        } else {
-            inputField.value += value; // Adiciona o emoji normalmente
-        }
-    }
-
-    // Função para adicionar itens à fila
-    function addToQueue() {
-        const inputField = document.getElementById('inputField');
-        const inputValue = inputField.value.trim();
-        if (inputValue) {
-            const queue = document.getElementById('queue');
-            
-            // Cria um novo item na fila
-            const newItem = document.createElement('div');
-            newItem.classList.add('queue-item');
-            newItem.innerHTML = `
-                <span>${inputValue}</span>
-                <div class="fileira-buttons">
-                    <button onclick="toggleGreen(this)">✅</button>
-                    <button onclick="toggleRed(this)">⛔️</button>
-                </div>
-                <div class="status-message" style="display:none;"></div>
-            `;
-            
-            // Adiciona o item à fila
-            queue.appendChild(newItem);
-            
-            // Limpa o campo de entrada e reseta o contador
-            inputField.value = '';
-            emojiCount = 0; // Reseta o contador após adicionar à fila
-        } else {
-            alert('Por favor, clique em um emoji ou insira um valor.');
-        }
-    }
-
-    // Função para apagar tudo que foi digitado no campo de entrada
-    function clearInput() {
-        const inputField = document.getElementById('inputField');
-        inputField.value = ''; // Limpa o campo de entrada
-        emojiCount = 0; // Reseta o contador
-    }
-
-    // Função para remover o último item da fila
-    function removeLastQueue() {
-        const queue = document.getElementById('queue');
-        const lastItem = queue.lastElementChild;
-        if (lastItem) {
-            // Atualiza o contador antes de remover a fileira
-            if (lastItem.classList.contains('green-fileira')) {
-                greenCount--; // Diminui o contador de GREEN
-            }
-            if (lastItem.classList.contains('red-fileira')) {
-                redCount--; // Diminui o contador de RED
-            }
-            queue.removeChild(lastItem); // Remove o último item da fila
-            updateCounter(); // Atualiza o contador
-        }
-    }
-
-    // Função para apagar toda a fila
-    function clearAll() {
-        const queue = document.getElementById('queue');
-        queue.innerHTML = ''; // Limpa toda a fila
         
-        // Reseta os contadores
-        greenCount = 0;
-        redCount = 0;
-        updateCounter(); // Atualiza o contador
-    }
-
-    // Função para alternar a cor da fileira para verde ou vermelho
-    function toggleGreen(button) {
-        const fileira = button.closest('.queue-item');
-        if (fileira.classList.contains('red-fileira')) {
-            fileira.classList.remove('red-fileira'); // Remove o vermelho
-            redCount--; // Diminui o contador de RED
+        // Se o campo já tiver valor, adiciona um hífen antes de adicionar o novo valor
+        if (inputField.value !== '') {
+            inputField.value += '-';
         }
-        fileira.classList.add('green-fileira'); // Adiciona o verde
-        greenCount++; // Aumenta o contador de GREEN
-        
-        // Adiciona ou mostra a mensagem "Green"
-        const statusMessage = fileira.querySelector('.status-message');
-        statusMessage.textContent = 'Green';
-        statusMessage.style.display = 'block'; // Mostra a mensagem "Green"
-        
-        // Atualiza o contador na tela
-        updateCounter();
+        inputField.value += value; // Adiciona o emoji ou número no campo
+        emojis.push(value); // Adiciona o emoji ou número ao array para controle
 
-        // Remove a mensagem "RED" caso exista
-        const redMessage = fileira.querySelector('.status-message.red');
-        if (redMessage) {
-            redMessage.style.display = 'none';
+        // Se já estiver mostrando a mensagem "analisando", não reinicia
+        if (emojis.length > 0) {
+            // Resetando e exibindo a mensagem "analisando"
+            clearTimeout(analyzingTimeout);
+            clearTimeout(suggestionTimeout);
+            showAnalyzingMessage();
+
+            // Exibe a sugestão após 3 segundos
+            suggestionTimeout = setTimeout(() => {
+                showSuggestion(); // Exibe a sugestão aleatória com a porcentagem
+            }, 3000);
         }
-    }
-
-    // Função para alternar a cor da fileira para vermelho ou verde
-    function toggleRed(button) {
-        const fileira = button.closest('.queue-item');
-        if (fileira.classList.contains('green-fileira')) {
-            fileira.classList.remove('green-fileira'); // Remove o verde
-            greenCount--; // Diminui o contador de GREEN
-        }
-        fileira.classList.add('red-fileira'); // Adiciona o vermelho
-        redCount++; // Aumenta o contador de RED
-        
-        // Adiciona ou mostra a mensagem "RED"
-        const statusMessage = fileira.querySelector('.status-message');
-        statusMessage.textContent = 'RED';
-        statusMessage.style.display = 'block'; // Mostra a mensagem "RED"
-        
-        // Atualiza o contador na tela
-        updateCounter();
-
-        // Remove a mensagem "Green" caso exista
-        const greenMessage = fileira.querySelector('.status-message.green');
-        if (greenMessage) {
-            greenMessage.style.display = 'none';
-        }
-    }
-
-    // Função para atualizar o contador
-    function updateCounter() {
-        const counter = document.getElementById('counter');
-        counter.textContent = `Placar: ✅ ${greenCount} x ⛔️ ${redCount}`;
     }
 
     // Função para alternar o tema
     function toggleTheme() {
         const body = document.body;
         const header = document.querySelector('header');
-        const counter = document.getElementById('counter');
-        const queueItems = document.querySelectorAll('.queue-item');
         
         body.classList.toggle('dark-theme');
         header.classList.toggle('dark-theme');
-        counter.classList.toggle('dark-theme');
-        
-        // Não aplicar a classe de tema escuro nas fileiras
-        queueItems.forEach(item => {
-            item.classList.remove('dark-theme');
-        });
+    }
+
+    // Função para mostrar a tabela de emojis
+    function showEmojiTable() {
+        const table = document.getElementById('emojiTable');
+        table.style.display = table.style.display === 'block' ? 'none' : 'block'; // Alterna a visibilidade da tabela
     }
 
     // Função para o botão "🤖"
     function robotAction() {
-        const emojiWindow = document.getElementById('emojiWindow');
+        const emojiContainer = document.getElementById('emojiContainer');
+        const deleteButton = document.getElementById('deleteLastEmoji');
         
-        // Alterna a visibilidade da janela de emojis
-        if (emojiWindow.style.display === 'block') {
-            emojiWindow.style.display = 'none'; // Esconde a janela
-        } else {
-            emojiWindow.style.display = 'block'; // Exibe a janela
+        // Alterna a visibilidade da container de emojis
+        emojiContainer.classList.toggle('show'); // Exibe ou esconde os emojis
+        deleteButton.style.display = emojiContainer.classList.contains('show') ? 'block' : 'none'; // Exibe o botão de apagar se os emojis estiverem visíveis
+    }
+
+    // Função para apagar o último emoji digitado
+    function deleteLastEmoji() {
+        if (emojis.length > 0) {
+            emojis.pop(); // Remove o último emoji do array
+            const inputField = document.getElementById('inputField');
+            inputField.value = emojis.join('-'); // Atualiza o campo de entrada com os emojis restantes e hífens
         }
     }
 
-    // Função para catalogar os emojis selecionados e exibir a sugestão na tela
-    function catalogEmojis() {
-        const suggestions = ['Sugestão 🔵', 'Sugestão 🔴'];
-        const randomSuggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
+    // Função para exibir a sugestão aleatória com a porcentagem
+    function showSuggestion() {
         const suggestionDisplay = document.getElementById('suggestionDisplay');
-        
-        // Verifica o tema atual para definir a cor da sugestão
-        const isDarkTheme = document.body.classList.contains('dark-theme');
-        
-        // Alteração: Garantindo que a sugestão fique branca no tema escuro e preta no tema claro
-        suggestionDisplay.style.color = isDarkTheme ? 'white' : 'black';  // Altera a cor conforme o tema
-        suggestionDisplay.textContent = randomSuggestion; // Exibe a sugestão na tela
-        
+        const suggestions = ['🔴', '🔵'];
+        const randomSuggestion = suggestions[Math.floor(Math.random() * suggestions.length)];
+
+        // Gerar uma porcentagem entre 64.0% e 100.0%
+        let percentage = Math.random() * (100 - 64) + 64; 
+        // Ajustar a probabilidade para que a porcentagem seja mais difícil de sair de 90%
+        if (percentage > 90) {
+            percentage = Math.random() * (100 - 90) + 90; // Força a porcentagem a ser maior que 90% se estiver acima disso
+        }
+
+        suggestionDisplay.textContent = `Sugestão ${randomSuggestion} (${percentage.toFixed(1)}%)`; // Exibe a sugestão com a porcentagem
+
         // Remove a sugestão após 30 segundos
         setTimeout(() => {
             suggestionDisplay.textContent = '';
+            suggestionDisplayed = false;
         }, 30000);
+    }
 
-        document.getElementById('emojiWindow').style.display = 'none'; // Fecha a janela de emojis
+    // Função para exibir a mensagem "analisando"
+    function showAnalyzingMessage() {
+        const analyzingMessage = document.getElementById('analyzingMessage');
+        analyzingMessage.style.display = 'block'; // Exibe a mensagem "Analisando..."
+
+        // Remove a mensagem "analisando" após 3 segundos
+        analyzingTimeout = setTimeout(() => {
+            analyzingMessage.style.display = 'none'; // Esconde a mensagem "Analisando..."
+        }, 3000);
     }
 </script>
 
